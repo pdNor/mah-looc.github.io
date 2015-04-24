@@ -1,2 +1,5 @@
 # mah-looc.github.io
-Localized Online Open Course
+
+Localized Online Open Course (LOOC)
+
+
