@@ -1,0 +1,10 @@
+name: Referenser
+id: D01
+
+modules:
+    - name: Introduktion
+      id: M1
+      rel: [M4]
+    - name: Mer om
+      id: M2
+      rel: [M4]

@@ -1,0 +1,7 @@
+name: Karakteristiska drag
+id: D010
+
+modules:
+    - name: Introduktion
+      id: M27
+      rel: []

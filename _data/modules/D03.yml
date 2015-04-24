@@ -1,0 +1,10 @@
+name: Klasser
+id: D03
+
+modules:
+    - name: Introduktion
+      id: M8
+      rel: []
+    - name: Mer om
+      id: M9
+      rel: []

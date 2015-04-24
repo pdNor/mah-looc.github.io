@@ -1,0 +1,11 @@
+# Members
+# =========
+# This file should contain all available members of
+# the course site in the following format (example):
+#
+#   - name: Jane Doe
+#     site: http://github.com/janedoe
+#     github: janedoe
+#     email: jane.doe@uni.com
+#     phone: 123-45 6789
+#     location: Washington, DC

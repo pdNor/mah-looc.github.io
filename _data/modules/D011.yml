@@ -1,0 +1,10 @@
+name: Templates
+id: D011
+
+modules:
+    - name: Funktionstemplates
+      id: M28
+      rel: []
+    - name: Klasstemplates
+      id: M29
+      rel: []

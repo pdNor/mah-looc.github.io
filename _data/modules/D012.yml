@@ -1,0 +1,10 @@
+name: "std::vector"
+id: D012
+
+modules:
+    - name: Introduktion
+      id: M30
+      rel: [M28, M29]
+    - name: Mer om
+      id: M31
+      rel: [M28, M29]

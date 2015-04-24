@@ -1,0 +1,862 @@
+/* Apply a natural box layout model to all elements (@paulirish) */
+*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/**
+ * General and content
+ **/
+body {
+    font-family: $main-font;
+    font-weight: 400;
+    color: #34495e;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+    word-spacing: 0.05em;
+}
+
+h1, h2, h3, h4, strong {
+    position: relative;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+a {
+    text-decoration: none;
+    color: #34495e;
+}
+
+code, pre {
+    font-family: $code-font;
+    font-size: 0.9em;
+    background-color: #f3f3f3;
+    -webkit-font-smoothing: initial;
+    -moz-osx-font-smoothing: initial;
+}
+
+code {
+    color: #525252;
+    padding: 2px 6px;
+    margin: 0 2px;
+    border: 1px solid #e6e6e6;
+    white-space: nowrap;
+    border-radius: 3px;
+}
+
+.info code {
+    background-color: #ffffff;
+    border-color: #c9c9c9;
+}
+
+.highlight {
+    box-shadow: 0 1px 1px rgba(0,0,0,0.125);
+    position: relative;
+}
+
+.highlight .toggle-lineno {
+    position: absolute;
+    top: 7px;
+    right: 6px;
+    background: transparent;
+    border: 0;
+    color: $accent-color;
+    font-size: 0.9em;
+    display: none;
+}
+
+.highlight .codepen-button {
+    position: absolute;
+    bottom: 7px;
+    right: 6px;
+    background: transparent;
+    border: 0;
+    color: $accent-color;
+    font-size: 0.9em;
+    display: none;
+}
+
+.highlight:hover .toggle-lineno,
+.highlight:hover .codepen-button {
+    display: inline;
+}
+
+.highlight .toggle-lineno:hover,
+.highlight .codepen-button:hover {
+    text-decoration: underline;
+}
+
+.highlight .toggle-lineno .show {
+    display: none;
+}
+
+.highlight.toggle .toggle-lineno .show {
+    display: inline;
+}
+
+.highlight.toggle .toggle-lineno .hide {
+    display: none;
+}
+
+.highlight pre code {
+    display: block; 
+    position: relative;
+    padding: 1.7em 1em;
+    margin: 0;
+    overflow-x: auto;
+    background-color: #f3f3f3;
+    line-height: 1.1em;
+    font-size: 0.95em;
+}
+
+.highlight .lineno {
+    color: #999;
+    display: inline-block;
+    padding: 0.15em 1.2em;
+    margin: 0;
+}
+
+/* Hide line numbers */
+.highlight.toggle .lineno {
+    visibility: hidden;
+}
+
+.highlight code {
+    border: 0;
+    white-space: inherit;
+}
+
+.content {
+    max-width: 720px;
+    min-height: 300px; /* TODO: research a proper way of solving this. */
+    margin: 0 auto;
+    padding-top: 1em;
+}
+
+.content.index {
+    max-width: 750px;
+}
+
+.highlight,
+.content figure,
+.content p,
+.content ul,
+.content ol {
+    margin: 1em 0 1em 0.8em;
+}
+
+.content p,
+.content ul,
+.content ol {
+    line-height: 1.6em;
+    text-align: justify;
+}
+
+.content a {
+    color: $accent-color;
+    font-weight: 600;
+}
+
+.content a:hover {
+    text-decoration: underline;
+}
+
+.content p img {
+    display: block;
+    margin: 1.5em auto 1.2em auto;
+    max-width: 100%;
+}
+
+/* TODO: research a proper way of having formatted text under images. */
+.content p img + em {
+    display: block;
+    text-align: center;
+    font-style: normal;
+    margin-bottom: 2em;
+}
+
+.contribute {
+    margin-top: 4em;
+    margin-left: 0.8em;
+    padding-top: 2em;
+    border-top: 1px solid #e5e5e5;
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+
+.contribute p {
+    margin-left: 0;
+}
+
+table {
+   width: 100%;
+   max-width: 100%;
+   margin: 20px auto;
+   border-spacing: 0;
+   border-collapse: collapse;
+}
+
+table tbody {
+    border-bottom: 1px solid #dddddd;
+}
+
+th {
+    text-align: left;
+}
+
+table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dddddd;
+    padding: 8px;
+}
+
+table tbody td {
+   padding: 8px; 
+   vertical-align: top;
+   border-top: 1px solid #dddddd;
+}
+
+table.small tbody td {
+    font-size: 0.9em;
+}
+
+table tbody tr:nth-child(odd) {
+    background: #f3f3f3;
+}
+
+/**
+ * Grid
+ **/
+.row {
+    clear: both;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.col-6 {
+    float: left;
+    padding: 1.33333%;
+    margin: 1.33333%;
+    width: 44.666667%;
+}
+
+/**
+ * Index
+ **/
+
+.index .brand {
+    display: block;
+    text-align: center;
+}
+
+.index .content-header {
+    text-align: center;
+}
+
+.index .content-list {
+    padding-left: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.index .content-list li {
+    margin-bottom: 10px;
+}
+
+.index .course-name,
+.index .blog-title {
+    font-size: 1.4em;
+    font-weight: 200;
+    display: block;
+    color: $accent-color;
+}
+
+.index.content a:hover {
+    text-decoration: none;
+}
+
+.index .content-list a:hover .course-name,
+.index .content-list a:hover .blog-title {
+    text-decoration: underline;
+}
+
+.index .course-code,
+.index .course-credits,
+.index .blog-date {
+    color: #838E8F;
+}
+
+/**
+ * Navigation
+ **/
+.header {
+    box-shadow: 0 0 4px rgba(0,0,0,0.35)
+}
+
+.header-inner {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 25px 0;
+}
+
+.brand {
+    display: inline-block;
+}
+
+.navigation {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 25px;
+}
+
+.navigation li {
+    display: inline-block;
+    margin: 0 0.6em;
+}
+
+.navigation a {
+    display: inline-block;
+    padding-bottom: 3px;
+}
+
+.navigation a.current,
+.navigation a:hover {
+    border-bottom: 3px solid $accent-color;
+}
+
+.navigation .submenu {
+    display: none;
+}
+
+/**
+ * Footer
+ **/
+.footer {
+    background: #f3f3f3; 
+    padding: 2em 0;
+    margin-top: 4em;
+}
+
+.footer-inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.footer .license,
+.footer .fork,
+.footer-links {
+    display: inline-block;
+    color: #687374;
+    font-size: 0.9em;
+}
+
+.footer .license,
+.footer .fork {
+    width: 36%;
+    margin-right: 3em;
+    vertical-align: top;
+}
+
+.footer-links {
+    margin-right: 0;
+    width: 15%;
+}
+
+.footer a {
+    color: $accent-color;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer-links-misc {
+    padding-left: 0;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.footer-links-misc li {
+    display: inline-block;
+    padding: 0 15px;
+    font-size: 0.9em;
+} 
+
+/**
+ * Course list
+ **/
+.course-list-header {
+    text-align: center;
+    margin-bottom: 1em;
+}
+.content .course-list {
+    text-align: center;
+    list-style: none;
+    padding: 0;
+}
+.course-list li {
+    margin-bottom: 1em; 
+}
+.content .course-list li a {
+    text-align: center;
+}
+.content .course-list a:hover {
+    text-decoration: none;
+}
+.content .course-list a:hover .course-name {
+    color: $accent-color;
+}
+.course-list .course-name {
+    font-size: 1.5em;
+    font-weight: 200;
+    color: #34495e;
+    display: block;
+}
+.course-list .course-code {
+    color: #838E8F;
+    margin-left: 1.1em;
+}
+.course-list .course-credits {
+    color: #838E8F;
+    margin-left: 1.1em;
+}
+
+/**
+ * Course and blog sidebar
+ **/
+.sidebar {
+    margin-left: 2em;
+    margin-top: 1em;
+    position: absolute;
+    max-width: 19em;
+}
+
+.blog .sidebar .blog-overview .blog-overview-submenu {
+    font-size: 0.9em;
+}
+
+.fix-sidebar .sidebar {
+    position: fixed;
+    top: 0;
+    overflow-y: auto;
+    max-height: 85%;
+}
+
+.toggle-sidebar {
+    display: none;
+    text-align: center;
+    font-size: 1.5em;
+    line-height: 0.8em;
+    height: 32px;
+    cursor: pointer;
+}
+
+.toggle-sidebar:hover {
+    background: #f3f3f3;
+}
+
+.course-name a,
+.blog-header a {
+    font-weight: 200;
+}
+
+.course-name a:hover,
+.blog-header a:hover {
+    color: $accent-color;
+}
+
+.course-name small {
+    font-size: 0.8em;
+    margin-left: 0.8em; 
+    color: #727b7c; 
+}
+
+.course-overview,
+.blog-overview {
+    list-style: none;
+    padding-left: 0.8em;
+}
+
+.course-overview-element,
+.blog-overview-element {
+    color: #727b7c; 
+    font-size: 0.95em;
+    line-height: 1.8em;
+    cursor: pointer;
+}
+
+.course-overview-element a {
+    color: #727b7c; 
+}
+
+.course-overview-element a:hover {
+    color: $accent-color; 
+}
+
+.course-overview-element .expand {
+    display: none;
+    color: $accent-color;
+    margin-left: 0.5em;
+}
+
+.course-overview-element.toggle .expand,
+.course-overview-element:hover .expand {
+    display: inline;
+}
+
+.course-overview-submenu {
+    display: none;
+    list-style: none;
+    padding-left: 1em;
+}
+
+.blog-overview-submenu {
+    list-style: none;
+    padding-left: 1em;
+}
+
+.blog-overview-submenu a small,
+.course-overview-submenu a small {
+    margin-left: 0.6em;
+    font-size: 0.9em;
+    color: #758383;
+}
+
+.course-overview-element.toggle + .course-overview-submenu {
+    display: block;
+}
+
+.course-overview-submenu a,
+.blog-overview-submenu a {
+    color: #4F5858;
+    line-height: 1.8em;
+}
+
+.course-overview-submenu a.active,
+.course-overview-submenu a:hover,
+.blog-overview-submenu a.active,
+.blog-overview-submenu a:hover {
+    border-bottom: 2px solid $accent-color;
+}
+
+/**
+ * Blog
+ **/
+.blog-post {
+    margin-bottom: 2em;
+}
+
+.blog-post-title {
+    margin-bottom: 5px;
+}
+
+.blog-post-title a {
+    color: #34495e;
+}
+
+.blog-post-title a:hover {
+    color: $accent-color;
+    text-decoration: none;
+}
+
+.blog-post .blog-post-date {
+    color: #34495e;
+    display: block;
+    font-size: 0.9em;
+}
+
+.blog-post-date:hover {
+    color: $accent-color;
+    text-decoration: none;
+}
+
+.blog-post-excerpt p {
+    margin-left: 0.5em;
+}
+
+/**
+ * Pagination
+ **/
+.blog .pagination-container {
+    margin-top: 3em;
+}
+
+.blog .pagination {
+    list-style: none;
+    text-align: center;
+    padding-left: 0;
+    font-size: 1.2em;
+}
+
+.blog .pagination li {
+    display: inline-block;
+}
+
+.blog .pagination li a,
+.blog .pagination li span {
+    padding: 0.3em 0.5em;
+}
+
+/**
+ * Contact
+ **/
+.member-list li {
+    margin-bottom: 1em;
+}
+
+.member-list span {
+    display: block;
+}
+
+.member-list .member-name {
+    font-size: 1.2em;
+}
+
+.member-list .member-email,
+.member-list .member-phone {
+    color: #606A74;
+}
+
+/**
+ * Info
+ **/
+.content p.info {
+    padding: 12px 24px 12px 30px;
+    margin: 2em 0 2em 0.8em;
+    border-left: 4px solid $info-color;
+    background-color: #f3f3f3;
+    position: relative;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.125);
+}
+
+.content p.info:before {
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    left: -17px;
+    background-color: $info-color;
+    color: #fff;
+    content: "i";
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    font-family: Georgia;
+}
+
+/**
+ * Top link
+ **/
+.up {
+    display: none;
+    position: fixed;
+    bottom: 2.3em;
+    left: 2.1em;
+    font-size: 1.4em;
+}
+
+.fix-sidebar .up {
+    display: block;
+}
+
+.up a {
+    padding: 6px 20px 11px 20px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.23);
+}
+
+.up a:hover {
+    background: #eaeaea;
+}
+
+/**
+ * Header anchor
+ **/
+.header-anchor {
+    display: none;
+}
+
+.header-anchor:hover,
+.content h1:hover .header-anchor,
+.content h2:hover .header-anchor,
+.content h3:hover .header-anchor {
+    display: inline;
+}
+
+.header-anchor:hover::after {
+    color: $accent-color;
+}
+
+.header-anchor::after {
+    content: "#";
+    color: #888888;
+    font-size: 0.8em;
+    padding: 4px 6px;
+    position: absolute;
+}
+
+/**
+ * Iframes
+ **/
+.video {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 35px;
+    height: 0;
+    overflow: hidden;
+}
+
+.video iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Hide the extra div from slideshare by default. */
+.video div { display: none; }
+
+/**
+ * Web App
+ **/
+body .web-app-nav-container {
+    display: none;
+}
+
+.standalone .web-app-nav-container {
+    display: block;
+    background: white;
+}
+
+.standalone .web-app-nav-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+}
+
+.standalone .web-app-subnav {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+    border-top: 1px solid $accent-color;
+}
+
+.standalone .web-app-subnav:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.standalone .web-app-subnav li {
+    float: left;
+    width: 25%;
+    padding: 10px 0;
+    border-right: 1px solid $accent-color;
+    color: #328962;
+    cursor: pointer;
+}
+
+.standalone .web-app-subnav li:last-child {
+    border: 0;
+    margin-top: -4px;
+}
+
+.standalone .header .brand {
+    display: none;
+}
+
+.standalone .header {
+    box-shadow: none;
+}
+
+.standalone .header .header-inner {
+    padding: 10px 0;
+}
+
+.standalone .navigation {
+    position: static;
+    margin: 0 auto;
+    padding-left: 0;
+    text-align: center;
+    border: 1px solid $accent-color;
+    border-radius: 4px;
+    max-width: 400px;
+}
+.standalone .navigation:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.standalone .navigation li {
+    display: inline;
+    float: left;
+    width: 33.3%;
+    border-right: 1px solid $accent-color;
+    margin: 0;
+}
+
+.standalone .navigation li:last-child {
+    border-right: 0;
+}
+
+.standalone .navigation a {
+    width: 100%;
+    display: inline-block;
+    font-weight: 200;
+    text-decoration: none;
+    color: $accent-color;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.standalone .navigation a.current,
+.standalone .navigation a:hover,
+.standalone .navigation a:active {
+    background: $accent-color;
+    color: white;
+    border: 0;
+}
+
+.standalone .footer {
+    display: none;
+}
+
+.standalone .content {
+    margin: 1em auto 3em auto;
+}
+
+.standalone .toggle-sidebar {
+    display: none;
+}
+
+.standalone .sidebar {
+    position: fixed;
+    top: 0;
+    max-height: 93%;
+    overflow: auto; 
+    box-shadow: none;
+}

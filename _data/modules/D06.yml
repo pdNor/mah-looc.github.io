@@ -1,0 +1,13 @@
+name: Header-filer
+id: D06
+
+modules:
+    - name: Introduktion
+      id: M15
+      rel: [M8, M9]
+    - name: Klassuppdelning
+      id: M16
+      rel: [M8, M9]
+    - name: Dubbeldefinition
+      id: M17
+      rel: [M8, M9]

@@ -1,0 +1,10 @@
+name: Program och minne
+id: D05
+
+modules:
+    - name: Introduktion
+      id: M13
+      rel: [M10, M11, M12]
+    - name: Typkonvertering
+      id: M14
+      rel: [M10, M11, M12]

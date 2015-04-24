@@ -1,0 +1,40 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    {% if page.title %}
+	<title>{{ page.title }} | {{ site.name }}</title>
+    {% else %}
+	<title>{{ site.name }}</title>
+    {% endif %}
+
+    {% if page.description %}
+	<meta name="description" content="{{ page.description }}">
+    {% endif %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="{{ site.name }}">
+
+    <!-- Icons
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">
+    <link rel="apple-touch-startup-image" href="/startup.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    -->
+
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Lato|Inconsolata" rel="stylesheet" type="text/css">
+    <link href="/assets/css/main.css" rel="stylesheet">
+
+    {% if page.css %}
+	<link href="{{ page.css }}" rel="stylesheet">
+    {% endif %}
+
+    {% if site.rss %}
+	<link rel="alternate" type="application/rss+xml" href="{{ site.url }}/rss.xml" title="{{ site.name }} (RSS 2.0)">
+    {% endif %}
+</head>

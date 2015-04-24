@@ -1,0 +1,10 @@
+name: Strängar
+id: D08
+
+modules:
+    - name: Literal
+      id: M22
+      rel: [M18, M19, M20, M21]
+    - name: "std::string"
+      id: M23
+      rel: [M24, M25, M26]
