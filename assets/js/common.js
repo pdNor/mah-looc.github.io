@@ -105,7 +105,9 @@ function highlightHeaderNavigation() {
     var anchors = bySelector(".navigation li a");
 
     anchors.filter(function(a) {
-	return startsWith(a.href, location.href);
+	// return startsWith(a.href, location.href);
+        // TODO: temporary fix?
+        return a.href == location.href.replace(/\/+$/, "");
     }).forEach(function(a) {
 	a.classList.add("current");
     });

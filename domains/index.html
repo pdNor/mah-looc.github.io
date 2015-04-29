@@ -1,10 +1,26 @@
 ---
 layout: default
-title: Områden
+title: Domäner
 markdown: 0
-js: /assets/js/path.js
 ---
 
-<h1 class="course-list-header">Skapa din egen väg</h1>
+<h1 class="course-list-header">Domäner</h1>
 
-<div id="path-container"></div>
+<div class="row">
+
+    <ul class="content-list">
+        {% for domain in site.data.domains %}
+        <li>
+            <a href="/domains/{{ domain.id }}">{{ domain.name }}</a>
+            <ul>
+                {% for module in site.data.modules[domain.id].modules %}
+                <li>
+                    <a href="/domains/{{ domain.id }}/modules/{{ module.id }}.html">{{ module.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+    
+</div>
