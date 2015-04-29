@@ -3,5 +3,6 @@ _site/
 .jekyll
 .DS_Store
 .DS_Store?
-**/.module_cache/
+.module_cache/
+assets/js/.module_cache/
 \#*\#
