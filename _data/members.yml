@@ -9,3 +9,15 @@
 #     email: jane.doe@uni.com
 #     phone: 123-45 6789
 #     location: Washington, DC
+
+- name: Sebastian Bengtegård
+  email: sebastian.bengtegard@mah.se
+
+- name: Olle Lindeberg
+  email: olle.lindeberg@mah.se
+
+- name: Jeanette Eriksson
+  email: jeanette.eriksson@mah.se
+
+- name: Jonas Peterson
+  email: jonas.peterson@mah.se

@@ -2,15 +2,15 @@
 # ===============
 
 # Page name
-name: C++
+name: LOOC
 # Description of the page/course
-description: Open course for C++
+description: Localized Online Open Course for C++
 # Github repository hosting this page/course
-github: https://github.com/uni-oer/uni-oer.github.io
+github: https://github.com/mah-looc/mah-looc.github.io
 # Google analytics
 analytics: UA-xxxxxxxx-x
 # ex. GitHub pages URL
-url: http://uni-oer.github.io
+url: http://mah-looc.github.io/
 
 # Already set as defaults in jekyll > 2.4.x
 # highlighter: pygments

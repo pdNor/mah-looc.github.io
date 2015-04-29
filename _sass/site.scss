@@ -253,7 +253,7 @@ table tbody tr:nth-child(odd) {
  * Index
  **/
 
-.index .brand {
+.index h1.brand {
     display: block;
     text-align: center;
 }
@@ -371,6 +371,7 @@ table tbody tr:nth-child(odd) {
 }
 
 .footer-links {
+    padding-left: 30px;
     margin-right: 0;
     width: 15%;
 }
@@ -859,4 +860,60 @@ body .web-app-nav-container {
     max-height: 93%;
     overflow: auto; 
     box-shadow: none;
+}
+
+/**
+ * Create Path
+ **/
+#create-path-container {
+    .domains {
+        float: right;
+        padding-left: 0;
+        padding-right: 50px;
+        list-style: none;
+        background: #eee;
+    }
+    .domain .modules {
+        display: none;
+    }
+    .domain.expand .modules {
+        display: block;
+    }
+    .toggle {
+        margin-right: 10px;
+        display: inline-block;
+        width: 18px;
+        text-align: center;
+        background: #ddd;
+    }
+    .toggle:hover {
+        cursor: pointer;
+        color: #0088cc;
+    }
+    .domain-name:hover {
+        cursor: pointer;
+        color: $accent-color;
+    }
+    .domain-name:hover + .modules label span {
+        color: $accent-color;
+    }
+    .modules {
+        padding-left: 20px;
+        list-style: none;
+        margin: 5px 0 5px 5px;
+    }
+    .module input {
+        margin-right: 8px;
+    }
+    .path {
+        float: left;
+        background: #eee;
+    }
+    .choices {
+        padding-left: 10px;
+        min-height: 100px;
+    }
+    .actions {
+        clear: both;
+    }
 }
