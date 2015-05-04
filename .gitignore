@@ -5,4 +5,6 @@ _site/
 .DS_Store?
 .module_cache/
 assets/js/.module_cache/
+.module_cache/*/
+assets/js/.module_cache/*/
 \#*\#
