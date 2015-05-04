@@ -917,3 +917,29 @@ body .web-app-nav-container {
         clear: both;
     }
 }
+
+/**
+ * Module sidebar
+ **/
+.module #app-sidebar {
+    .modules {
+        list-style: none;
+    }
+
+    .modules li {
+        padding: 4px 0;
+    }
+
+    .modules a {
+        color: $accent-color;
+
+        &:hover { text-decoration: underline; }
+    }
+
+    .modules .done a {
+        color: #aaa;
+        text-decoration: line-through;
+
+        &:hover { color: $accent-color; }
+    }
+}
