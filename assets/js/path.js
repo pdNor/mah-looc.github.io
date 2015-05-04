@@ -83,8 +83,69 @@ var ModuleChoice = React.createClass({displayName: "ModuleChoice",
 
 // A Domain of modules
 var Domain = React.createClass({displayName: "Domain",
-    : "domain"}, 
-                React.createElement("span", {onClick: this.handleDomainSelection}, this.props.domain.name), 
+    getInitialState: function() {
+        return { toggle: "" };
+    },
+    // Select one module
+    handleModuleSelection: function(module) {
+        return function() {
+            if (React.findDOMNode(this.refs[module.id]).checked) {
+                this.props.addChoice(module);
+            } else {
+                this.props.removeChoice(module);
+            }
+        }.bind(this);
+    },
+    // Select all modules from a domain
+    handleDomainSelection: function() {
+        // Convert all component references to an array
+        var refs = Object.keys(this.refs).map(function(k) { return this.refs[k]; }, this);
+        // Check if all checkboxes have been checked
+        var allChecked = refs.every(function(r) { return React.findDOMNode(r).checked; });
+
+        if (allChecked) {
+            // Remove all modules choices if all is already chosen
+            var ids = refs.map(function(r) {
+                React.findDOMNode(r).checked = false;
+                return r.props.module.id;
+            });
+
+            this.props.removeChoice(ids);
+        } else {
+            // If all is not chosen add all the non-chosen modules
+            var choices = refs.filter(function(r) {
+                return !React.findDOMNode(r).checked;
+            }).map(function(r) {
+                React.findDOMNode(r).checked = true;
+                return r.props.module;
+            });
+
+            this.props.addChoice(choices);
+        }
+    },
+    toggle: function() {
+        this.setState({
+            toggle: this.state.toggle ? "" : "expand"
+        });
+    },
+    render: function() {
+        var modules = this.props.domain.modules.map(function(module) {
+            return (
+                React.createElement("li", {className: "module"}, 
+                    React.createElement("label", null, 
+                        React.createElement("input", {type: "checkbox", ref: module.id, module: module, onChange: this.handleModuleSelection(module)}), 
+                        module.name
+                    )
+                )
+            );
+        }, this);
+
+        var toggle = this.state.toggle ? "-" : "+";
+
+        return (
+            React.createElement("li", {className: "domain " + this.state.toggle}, 
+                React.createElement("span", {onClick: this.toggle, className: "toggle"}, toggle), 
+                React.createElement("span", {onClick: this.handleDomainSelection, className: "domain-name"}, this.props.domain.name), 
                 React.createElement("ul", {className: "modules"}, modules)
             )
         );
@@ -217,7 +278,9 @@ var CreatePath = React.createClass({displayName: "CreatePath",
                         msgType: "success"
                     });
 
+                    // TODO
                     // Visa länken som är delbar?
+                    // Visa vilken kod användaren fick?
                 }
             })
             .catch(function(err, url) {
