@@ -54,7 +54,6 @@
         }
     });
 
-    
     var Sidebar = React.createClass({
         getInitialState: function() {
             return {
