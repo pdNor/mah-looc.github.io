@@ -1,0 +1,25 @@
+---
+---
+{
+    "domains": [
+        {% for domain_hash in site.data.domains %}
+        {% assign domain = domain_hash[1] %}
+        {
+            "name": "{{ domain.name }}",
+            "id": "{{ domain.id }}"
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+    ],
+    "modules": [
+        {% for module_hash in site.data.modules %}
+        {% assign module = module_hash[1] %}
+        {
+            "name": "{{ module.name }}",
+            "id": "{{ module.id }}",
+            "domain": "{{ module.domain }}",
+            "rel": [{% for r in module.rel %}"{{ r }}"{% unless forloop.last %},{% endunless %}{% endfor %}],
+            "url": "{{ site.url }}/domains/{{ module.domain }}/modules/{{ module.id }}.html"
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+    ]
+}
