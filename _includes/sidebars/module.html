@@ -1,5 +1,24 @@
 <div id="sidebar" class="sidebar">
     <div id="toggle-sidebar" class="toggle-sidebar">...</div>
 
-    <div id="app-sidebar"></div>
+    {% if page.links %}
+    <h5 class="sidebar-links-header">Externa länkar</h5>
+    <ul class="external-links">
+        {% for link in page.links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if site.data.modules[page.module].rel %}
+    <h5 class="sidebar-links-header">Relaterade moduler</h5>
+    <ul class="relationship-links">
+        {% for id in site.data.modules[page.module].rel %}
+        {% assign module = site.data.modules[id] %}
+        <li><a href="/domains/{{ page.domain }}/modules/{{ module.id }}.html">{{ module.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="progress-links" id="app-sidebar"></div>
 </div>
