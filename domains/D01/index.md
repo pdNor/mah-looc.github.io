@@ -1,8 +1,7 @@
 ---
 layout: domain
-id: D01
 title: Referenser
+domain: D01
 ---
 
-# Referenser
-
+Beskrivning av domänen?
