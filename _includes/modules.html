@@ -1,0 +1,10 @@
+<div class="modules-container">
+    <ul class="module-list">
+        {% for module_hash in site.data.modules %}
+        {% assign module = module_hash[1] %}
+        {% if module.domain == page.domain %}
+        <li>{{ module.name }}</li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</div>
