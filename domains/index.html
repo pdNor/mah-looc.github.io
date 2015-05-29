@@ -9,14 +9,18 @@ markdown: 0
 <div class="row">
 
     <ul class="content-list">
-        {% for domain in site.data.domains %}
+        {% for domain_hash in site.data.domains %}
+        {% assign domain = domain_hash[1] %}
         <li>
             <a href="/domains/{{ domain.id }}">{{ domain.name }}</a>
             <ul>
-                {% for module in site.data.modules[domain.id].modules %}
+                {% for module_hash in site.data.modules %}
+                {% assign module = module_hash[1] %}
+                {% if module.domain == domain.id %}
                 <li>
-                    <a href="/domains/{{ domain.id }}/modules/{{ module.id }}.html">{{ module.name }}</a>
+                    <a href="/domains/{{ module.domain }}/modules/{{ module.id }}.html">{{ module.name }}</a>
                 </li>
+                {% endif %}
                 {% endfor %}
             </ul>
         </li>

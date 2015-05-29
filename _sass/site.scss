@@ -921,19 +921,57 @@ body .web-app-nav-container {
 /**
  * Module sidebar
  **/
-.module #app-sidebar {
-    .modules {
+.module #sidebar,
+.domain #sidebar {
+
+    .external-links,
+    .relationship-links {
         list-style: none;
+        padding-left: 10px;
+        margin: 0;
     }
 
-    .modules li {
-        padding: 4px 0;
+    .progress-links .modules {
+        margin: 0;
     }
 
-    .modules a {
+    .progress-links .modules li {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .external-links a,
+    .relationship-links a,
+    .progress-links .modules a {
+        font-size: 14px;
         color: $accent-color;
-
         &:hover { text-decoration: underline; }
+    }
+
+    .sidebar-links-header {
+        font-weight: normal;
+        margin: 16px 0 8px 0;
+        font-size: 15px;
+        color: #727b7c;
+    }
+
+    .progress-links .sidebar-links-header:hover {
+        cursor: pointer;
+    }
+
+    .progress-links .sidebar-links-header:hover .show-hide {
+        text-decoration: underline;
+    }
+
+    .progress-links .hide .modules {
+        display: none;
+    }
+
+    .progress-links .sidebar-links-header .show-hide {
+        margin-left: 12px;
+        font-size: 12px;
+        line-height: 0;
+        color: $accent-color;
     }
 
     .modules .done a {
@@ -942,4 +980,51 @@ body .web-app-nav-container {
 
         &:hover { color: $accent-color; }
     }
+}
+
+.login-form {
+    margin-top: 40px;
+
+    input, button {
+        display: block;
+    }
+
+    input {
+        border: 0;
+        border-bottom: 1px solid #bbb;
+        outline: none;
+        text-align: center;
+        padding: 4px;
+        margin: 0 auto;
+
+        &:focus { border-color: $accent-color; }
+    }
+    
+    button {
+        background: transparent;
+        outline: none;
+        border: 0;
+        color: $accent-color;
+        font-size: 16px;
+        margin: 0 auto;
+        width: 100%;
+        padding: 10px 5px;
+
+        &:hover { text-decoration: underline; }
+    }
+}
+
+.logout-button {
+    background: transparent;
+    outline: none;
+    border: 0;
+    border-top: 1px solid #ddd;
+    color: $accent-color;
+    font-size: 14px;
+    margin: 20px auto 0 auto;
+    padding: 10px 5px;
+    display: block;
+    width: 100%;
+
+    &:hover { text-decoration: underline; }
 }
