@@ -1,37 +1,69 @@
-"use strict";
-
 // Don't clutter global namespace
 (function(window, document) {
+    // Strict mode
+    "use strict";
+
     // Dependencies
     var React = window.React,
         Http = window.qwest,
-        Storage = window.localStorage;
+        Storage = window.localStorage,
+        Cache;
 
     var Endpoints = {
-        createPath: "http://0.0.0.0:3000/api/paths",
-        domains: "/domains.json"
+        data: "/data.json",
+        createPath: "http://0.0.0.0:3000/api/paths"
     };
 
-    // If a user doesnt exist it will be set to "null"
-    var User = JSON.parse(Storage.getItem("user"));
+    // TODO: check if localStorage exists
+    // Setup cache
+    if (Storage.getItem("_mah-looc-data")) {
+        Cache = JSON.parse(Storage.getItem("_mah-looc-data"));
+    } else {
+        Cache = { user: null, domains: null, lastUpdated: null };
+    }
+
+    function updateStorage() {
+        Storage.setItem("_mah-looc-data", JSON.stringify(Cache));
+    }
 
     // DEBUG
-    if (User) console.log("User object: ", User);
+    if (Cache.user) console.log("User object:", Cache.user);
+    if (Cache.domains) console.log("Domains object:", Cache.domains);
 
-    // TODO: check if localStorage exists
-
-    // Fetches all domains from the server and caches them
-    // TODO: how long should these be cached?
-    function getDomains(cb) {
-        if (Storage.getItem("domains")) {
-            cb(JSON.parse(Storage.getItem("domains")));
-        } else {
-            Http.get(Endpoints.domains)
-                .then(function(response) {
-                    Storage.setItem("domains", JSON.stringify(response.domains));
-                    cb(response.domains);
-                });
+    // Fetch all domains from the server and cache them in localStorage
+    function fetchDomains(cb) {
+        if (Cache.domains) {
+            return cb(Cache.domains);
         }
+
+        // TODO: how long should the data be cached?
+        return Http.get(Endpoints.data)
+            .then(function(res) {
+                // Build up dependency tree of domains -> modules and then sort them by id
+                var domains = res.domains.map(function(d) {
+                    d.modules = res.modules.filter(function(m) {
+                        return m.domain == d.id;
+                    })
+                    .map(function(m) {
+                        m.mid = m.id;
+                        delete m.id;
+                        return m;
+                    });
+
+                    return d;
+                })
+                .sort(function(a, b) {
+                    return +a.id.substring(1) >= +b.id.substring(1) ? 1 : -1;
+                });
+
+                Cache.domains = domains;
+                updateStorage();
+                cb(domains);
+            })
+            .catch(function(e, url) {
+                // TODO: better error ha
+                console.log(e, url);
+            });
     }
 
     // Sort all modules
@@ -57,7 +89,7 @@
     // Chosen path of modules
     var Path = React.createClass({
         getDomainById: function(id) {
-            // Returnera en domän baserat på id
+            // Return domain based on id
             return this.props.domains.filter(function(d) { return d.id == id; })[0];
         },
         render: function() {
@@ -90,7 +122,7 @@
         // Select one module
         handleModuleSelection: function(module) {
             return function() {
-                if (React.findDOMNode(this.refs[module.id]).checked) {
+                if (React.findDOMNode(this.refs[module.mid]).checked) {
                     this.props.addChoice(module);
                 } else {
                     this.props.removeChoice(module);
@@ -108,7 +140,7 @@
                 // Remove all modules choices if all is already chosen
                 var ids = refs.map(function(r) {
                     React.findDOMNode(r).checked = false;
-                    return r.props.module.id;
+                    return r.props.module.mid;
                 });
 
                 this.props.removeChoice(ids);
@@ -134,7 +166,7 @@
                 return (
                     <li className="module">
                         <label>
-                            <input type="checkbox" ref={module.id} module={module} onChange={this.handleModuleSelection(module)} />
+                            <input type="checkbox" ref={module.mid} module={module} onChange={this.handleModuleSelection(module)} />
                             {module.name}
                         </label>
                     </li>
@@ -218,22 +250,23 @@
             };
         },
         handleSubmit: function() {
-            // "minimum" tillåtna antal val?
+            // TODO: should we have a minimum/maximum amount of allowed module choices?
+
             if (this.state.verify && !this.state.code.length) {
-                this.setState({
+                // Incorrect user code
+                return this.setState({
                     msg: "Fyll i en användarkod",
                     msgType: "info"
                 });
-                return;
             } else if (!this.state.email.length || !this.props.choices.length) {
-                this.setState({
+                // Empty fields
+                return this.setState({
                     msg: "Välj moduler och fyll i en email",
                     msgType: "info"
                 });
-                return;
             }
 
-            // TODO: animation for loading?
+            // TODO: fix a proper loading animation
             this.setState({ msg: "Loading", msgType: "loading" });
 
             // Data sent to the server
@@ -242,61 +275,56 @@
                 path: { choices: this.props.choices }
             };
 
-            // if (User) {
-            //     // Send user code if a user is already active
-            //     payload.code = User.code;
-            // } else if (this.state.verify) {
-            //     // Otherwise get it from the input field
-            //     payload.code = this.state.code;
-            // }
-
             if (this.state.verify) {
                 payload.code = this.state.code;
             }
 
-            var self = this;
-
-            Http.post(Endpoints.createPath, payload, { dataType: "json" })
+            return Http.post(Endpoints.createPath, payload, { dataType: "json" })
                 .then(function(res) { return JSON.parse(res); })
                 .then(function(res) {
-                    console.log("Response", res);
+                    // DEBUG
+                    console.log("Response object:", res);
 
                     if ("exists" in res && res.exists) {
-                        console.log("User exists");
+                        // DEBUG
+                        console.log("User already exists");
 
-                        self.setState({
+                        this.setState({
                             verify: true,
                             msg: "User exists, authenticate with code",
                             msgType: "info"
                         });
                     } else {
-                        console.log("Success", res);
+                        // DEBUG
+                        console.log("New user created:", res.user);;
 
-                        Storage.setItem("user", JSON.stringify(res.user));
-                        // redirect
+                        Cache.user = res.user;
+                        updateStorage();
+
+                        // TODO: do we want to redirect or not?
                         // location.pathname = "/domains/overview.html";
 
-                        // TODO: better message?
-                        var msg = "Code: " + res.user.code + ", hash-link: http://0.0.0.0:4000/domains/path.html?hash=" + res.path.hash;
+                        // TODO: fix a proper info message
+                        var msg = "Code: " + res.user.code + ", hash-link: http://127.0.0.1:4000/path/add.html?hash=" + res.path.hash;
                         
-                        self.setState({
+                        this.setState({
                             verify: false,
                             done: true,
-                            // msg: "Path successfully created",
                             msg: msg,
                             msgType: "success"
                         });
                     }
-                })
-                .catch(function(err, url) {
-                    console.log("Error", err, url);
+                }.bind(this))
+                .catch(function(e, url) {
+                    // DEBUG
+                    console.log("Error object:", e, url);
 
-                    self.setState({
+                    this.setState({
                         verify: false,
                         msg: "An error occurred",
                         msgType: "error"
                     });
-                });
+                }.bind(this));
         },
         handleEmailChange: function(e) {
             this.setState({ email: e.target.value });
@@ -319,7 +347,7 @@
             var userInput;
 
             if (this.state.done) {
-                userInput = <a href="/domains/overview.html">Gå vidare</a>;
+                userInput = <a href="/path/profile.html">Gå till din profil</a>;
             } else {
                 userInput = (
                     <UserInput
@@ -347,7 +375,7 @@
         },
         fetchDomainsFromServer: function() {
             // Fetch all domains (these will be cached in localStorage)
-            getDomains(function(domains) {
+            fetchDomains(function(domains) {
                 this.setState({ domains: domains });
             }.bind(this));
         },
@@ -361,8 +389,8 @@
         removeChoice: function(choice) {
             // Remove one or more module choices
             this.setState({
-                choices: this.state.choices.filter(function(o) {
-                    return ("indexOf" in choice) ? (choice.indexOf(o.id) == -1) : (o.id != choice.id);
+                choices: this.state.choices.filter(function(m) {
+                    return ("indexOf" in choice) ? (choice.indexOf(m.mid) == -1) : (m.mid != choice.mid);
                 })
             });
         },
@@ -370,7 +398,7 @@
             // Sort choices by domain id + module id 
             this.setState({
                 choices: this.state.choices.sort(function(a, b) {
-                    return (+a.domain.substr(1) + +a.id.substr(1)) - (+b.domain.substr(1) + +b.id.substr(1));
+                    return (+a.domain.substr(1) + +a.mid.substr(1)) - (+b.domain.substr(1) + +b.mid.substr(1));
                 })
             });
         },

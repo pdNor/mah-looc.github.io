@@ -1,7 +1,8 @@
+.*
 _site/
 .sass-cache/
 .jekyll
 .DS_Store
 .DS_Store?
-**/.module_cache/**
 \#*\#
+!/.gitignore

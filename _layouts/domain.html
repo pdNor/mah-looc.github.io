@@ -3,16 +3,20 @@
     {% include head.html %}
     <body class="domain {{ page.class }}">
         {% include header.html %}
+        {% include sidebars/domain.html %}
         {% include up.html %}
 
         <div class="content" id="content">
-        {% if page.markdown == 0 %}
-            {{ content }}
-        {% else %}
-            {{ content || markdownify }}
-        {% endif %}
+            <h1>{{ page.title }}</h1>
+            {% include modules.html %}
+            
+            {% if page.markdown == 0 %}
+                {{ content }}
+            {% else %}
+                {{ content || markdownify }}
+            {% endif %}
 
-        {% include contribute.html %}
+            {% include contribute.html %}
         </div>
 
         {% include footer.html %}

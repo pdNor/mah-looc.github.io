@@ -13,6 +13,10 @@
             {{ content || markdownify }}
         {% endif %}
 
+        {% if page.quiz %}
+            <div id="quiz-container">{{ page.domain }}/{{ page.module }}:{{ page.quiz }}</div>
+        {% endif %}
+
         {% include contribute.html %}
         </div>
 

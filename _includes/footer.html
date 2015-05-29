@@ -8,7 +8,7 @@
         </p>
         <ul class="footer-links">
             <li><a href="/domains" title="Gå till alla domäner">Domäner</a></li>
-            <li><a href="/domains/create.html" title="Skapa din egen väg">Skapa din väg</a></li>
+            <li><a href="/path" title="Skapa din egen väg">Skapa din väg</a></li>
             <li><a href="/domains/overview.html" title="Din profil">Profil</a></li>
             <li><a href="/contact" title="Gå till kontaktsidan">Kontakt</a></li>
         </ul>
@@ -29,14 +29,15 @@
     </ul>
 </div>
 
-<script src="/assets/js/common.js"></script>
 <script src="/assets/js/qwest.min.js"></script>
 <script src="/assets/js/react.min.js"></script>
+<script src="/assets/js/common.js"></script>
+
 {% for src in page.js %}
 <script src="{{ src }}"></script>
 {% endfor %}
 
-{% if page.layout == "module" %}
+{% if page.layout == "module" or page.layout == "domain" %}
 <script src="/assets/js/sidebar.js"></script>
 {% endif %}
 

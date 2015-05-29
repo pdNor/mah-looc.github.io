@@ -1,0 +1,4 @@
+domain: D08
+name: "std::string"
+id: M23
+rel: [M24, M25, M26]
