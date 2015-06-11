@@ -10,11 +10,20 @@
         {% if page.markdown == 0 %}
             {{ content }}
         {% else %}
-            {{ content || markdownify }}
+            {{ content | markdownify }}
         {% endif %}
 
         {% if page.quiz %}
-            <div id="quiz-container">{{ page.domain }}/{{ page.module }}:{{ page.quiz }}</div>
+            <div id="quiz-container">
+                <form action="" method="post" id="quiz-form">
+                    {% capture capture_include %}{% include quiz/{{ page.quiz }}.md %}{% endcapture %}
+                    {{ capture_include | markdownify }}
+                    <input type="hidden" name="quiz-id" id="quiz-id" value="{{ page.quiz }}">
+                    <input type="hidden" name="module-id" id="module-id" value="{{ page.module }}">
+                    <p id="quiz-message"></p>
+                    <button type="submit" id="submit-quiz" class="submit-quiz-form">Skicka svar</button>
+                </form>
+            </div>
         {% endif %}
 
         {% include contribute.html %}
