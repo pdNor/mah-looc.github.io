@@ -1,1 +1,19 @@
 # Format for a quiz
+
+id: Q2
+
+# correct = array of correct answers OR a string of the correct answer
+# type = either checkbox (for multiple answers) or radio for a single answer
+
+answers:
+  - correct: ["a", "b"]
+    type: "checkbox"
+
+  - correct: "a"
+    type: "radio"
+
+  - correct: "b"
+    type: "radio"
+
+  - correct: ["b", "d"]
+    type: "checkbox"
