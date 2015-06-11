@@ -165,6 +165,7 @@
     .content p,
     .content ul,
     .content ol,
+    .content label,
     .content a {
         font-size: 0.9em;
         text-align: left;
@@ -222,11 +223,42 @@
         padding-top: 1em;
     }
 
+    .module #sidebar {
+        .external-links,
+        .relationship-links,
+        .progress-links ol {
+            padding: 0;
+            list-style: none;
+        }
+
+        .progress-links ol li {
+            padding: 4px 0;
+        }
+    }
+
+    .sidebar {
+        .sidebar-links-header,
+        .external-links,
+        .relationship-links,
+        .progress-links {
+            display: none;
+        }
+    }
+
     .sidebar .course-name,
     .sidebar .course-overview,
     .sidebar .blog-header,
     .sidebar .blog-overview {
         display: none;
+    }
+
+    .sidebar.toggle {
+        .sidebar-links-header,
+        .external-links,
+        .relationship-links,
+        .progress-links {
+            display: block;
+        }
     }
 
     .sidebar.toggle .course-name,
@@ -296,7 +328,7 @@
     }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 450px) {
     .header .brand,
     .header .navigation {
         position: static;
