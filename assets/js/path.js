@@ -19,7 +19,7 @@
     if (Storage.getItem("_mah-looc-data")) {
         Cache = JSON.parse(Storage.getItem("_mah-looc-data"));
     } else {
-        Cache = { user: null, domains: null, lastUpdated: null };
+        Cache = { user: null, domains: null, quizAnswers: null, lastUpdated: null };
     }
 
     function updateStorage() {
