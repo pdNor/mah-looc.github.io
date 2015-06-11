@@ -10,7 +10,7 @@
 
     var Endpoints = {
         data: "/data.json",
-        submitQuiz: "http://0.0.0.0:3000/api/quiz"
+        submitQuiz: "http://178.62.76.67/api/quiz"
     };
 
     // TODO: check if localStorage exists
