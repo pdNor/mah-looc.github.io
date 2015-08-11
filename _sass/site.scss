@@ -866,12 +866,22 @@ body .web-app-nav-container {
  * Create Path
  **/
 #create-path-container {
+    .domains-info {
+        font-size: 16px;
+        text-align: center;
+        margin: 0 auto 25px auto;
+        max-width: 70%;
+    }
     .domains {
-        float: right;
         padding-left: 0;
-        padding-right: 50px;
+        margin: 0 auto;
+        max-width: 80%;
         list-style: none;
-        background: #eee;
+    }
+    .domain {
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #eee;
     }
     .domain .modules {
         display: none;
@@ -879,12 +889,30 @@ body .web-app-nav-container {
     .domain.expand .modules {
         display: block;
     }
+    .modules {
+        padding-left: 20px;
+        list-style: none;
+        margin: 5px 0 5px 15px;
+    }
+    .module {
+        display: inline-block;
+        width: 32.5%;
+        font-size: 14px;
+    }
+    .module label:hover {
+        cursor: pointer;
+    }
     .toggle {
         margin-right: 10px;
         display: inline-block;
         width: 18px;
         text-align: center;
-        background: #ddd;
+        font-size: 22px;
+        padding-bottom: 4px;
+
+        &:hover {
+            background: #eee;
+        }
     }
     .toggle:hover {
         cursor: pointer;
@@ -897,25 +925,105 @@ body .web-app-nav-container {
     .domain-name:hover + .modules label span {
         color: $accent-color;
     }
-    .modules {
-        padding-left: 20px;
-        list-style: none;
-        margin: 5px 0 5px 5px;
-    }
     .module input {
         margin-right: 8px;
     }
-    .path {
-        float: left;
-        background: #eee;
-    }
-    .choices {
-        padding-left: 10px;
-        min-height: 100px;
-    }
     .actions {
         clear: both;
+        margin: 50px auto 0 auto;
+        max-width: 85%;
+        text-align: center;
     }
+    .actions h5 {
+        font-weight: normal;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    .actions input {
+        display: block;
+        width: 70%;
+        margin: 0 auto 10px auto;
+        border: 0;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+        padding: 4px;
+        outline: none;
+    }
+    .actions input:focus {
+        outline: none;
+        border-color: $accent-color;
+    }
+    .actions button {
+        background: transparent;
+        border: 0;
+        color: $accent-color;
+        padding: 3px 10px;
+        outline: none;
+    }
+    .actions button:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .share {
+        font-size: 14px;
+    }
+    .to-profile {
+        font-size: 18px;
+        font-weight: normal;
+        display: block;
+        margin-top: 40px
+    }
+    .path {
+        margin-left: 2em;
+        position: absolute;
+        max-width: 19em;
+        left: 0;
+    }
+    .path h5 {
+        font-weight: normal;
+        margin: 0 0 8px 0;
+        font-size: 18px;
+        color: #727b7c;
+    }
+    .path ol {
+        margin-left: 0;
+        overflow-y: auto;
+        max-height: 400px;
+        padding-left: 20px;
+    }
+    .path li {
+        font-size: 14px;
+        color: #666;
+    }
+    .path a {
+        font-size: 14px;
+        color: $accent-color;
+    }
+    .path button {
+        background: transparent;
+        border: 0;
+        color: $accent-color;
+        font-size: 14px;
+        padding: 0 10px;
+        outline: none;
+
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+    .choices {
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+}
+
+.fixed-path #create-path-container .path {
+    position: fixed;
+    top: 1em;
+    overflow-y: auto;
+    max-height: 65%;
 }
 
 /**
@@ -1090,5 +1198,55 @@ body .web-app-nav-container {
         &:hover {
             text-decoration: underline;
         }
+    }
+}
+
+/**
+ * List of all domains
+ **/
+#domains-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .domain {
+        text-align: center;
+        width: 60%;
+        margin: 0 auto 25px auto;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .domain-link {
+        font-size: 18px;
+        font-weight: normal;
+        width: 100%;
+        display: inline-block;
+        padding: 8px 0;
+        background: #f2f2f2;
+    }
+
+    .modules {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        border-top: 1px solid #ddd;
+    }
+
+    .module {
+        display: inline-block;
+        width: 49.5%;
+
+        &:last-child:nth-child(odd) {
+            display: block;
+        }
+    }
+
+    .module-link {
+        font-weight: normal;
+        display: inline-block;
+        padding: 6px 0;
+        width: 100%;
     }
 }

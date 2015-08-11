@@ -308,6 +308,22 @@
 	text-align: center;
 	list-style: none;
     }
+    #domains-list {
+        .domain {
+            width: 80%;
+        }
+        .domain-link {
+            text-align: center;
+            font-size: 16px;
+        }
+        .module {
+            width: 100%;
+            margin: 5px 0;
+        }
+        .module-link {
+            text-align: center;
+        }
+    }
 }
 
 @media (max-width: 650px) {
@@ -316,6 +332,32 @@
         width: 97%;
         padding: 0;
         margin: 1.5em auto;
+    }
+    #create-path-container {
+        .module {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+        }
+        .path {
+            position: static;
+            margin: 0 auto 40px auto;
+            max-width: 65%;
+        }
+        .domains {
+            max-width: 90%;
+        }
+        .domains-info {
+            font-size: 14px;
+            max-width: 80%;
+            margin-bottom: 40px;
+        }
+        .modules {
+            padding-left: 10px;
+        }
+        .module {
+            width: 95%;
+        }
     }
 }
 
@@ -334,6 +376,7 @@
         position: static;
         display: block;
         text-align: center;
+        font-size: 14px;
     }
     .header .brand {
         margin-bottom: 1em;
