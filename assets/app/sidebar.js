@@ -12,6 +12,8 @@
     var Endpoints = {
         data: "/data.json",
         getUserByCode: "http://178.62.76.67/api/user"
+        // LOCAL
+        // getUserByCode: "http://0.0.0.0:3000/api/user"
     };
 
     // TODO: check if localStorage exists

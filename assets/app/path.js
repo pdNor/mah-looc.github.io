@@ -11,7 +11,11 @@
 
     var Endpoints = {
         data: "/data.json",
-        createPath: "http://178.62.76.67/api/paths"
+        createPath: "http://178.62.76.67/api/paths",
+        addPath: "http://mah-looc.github.io/path/add.html"
+        // LOCAL
+        // createPath: "http://localhost:3000/api/paths",
+        // addPath: "http://localhost:4000/path/add.html"
     };
 
     // TODO: check if localStorage exists
@@ -97,8 +101,13 @@
                 return <ModuleChoice key={i} module={choice} domain={this.getDomainById(choice.domain)} />;
             }, this);
 
+            if (!choices.length) {
+                choices = <li>Ingen modul vald</li>;
+            }
+
             return (
                 <div className="path">
+                    <h5>Din väg</h5>
                     <ol className="choices">{choices}</ol>
                     <SortButton sortChoices={this.props.sortChoices} />
                     <ClearButton clearChoices={this.props.clearChoices} />
@@ -110,14 +119,21 @@
     // A module choice
     var ModuleChoice = React.createClass({
         render: function() {
-            return <li className="choice">{this.props.module.name} <small>({this.props.domain.name})</small></li>;
+            //  <small>({this.props.domain.name})</small>
+            return (
+                <li className="choice">
+                    <a href={"/domains/" + this.props.module.domain + "/modules/" + this.props.module.mid + ".html"}>
+                    {this.props.module.name}
+                    </a>
+                </li>
+            );
         }
     });
 
     // A Domain of modules
     var Domain = React.createClass({
         getInitialState: function() {
-            return { toggle: "" };
+            return { toggle: "expand" };
         },
         // Select one module
         handleModuleSelection: function(module) {
@@ -196,7 +212,12 @@
                         removeChoice={this.props.removeChoice} />;
             }, this);
 
-            return <ul className="domains">{domains}</ul>;
+            return (
+                <div>
+                    <p className="domains-info">Välj moduler från listan nedan som ska ingå i din egen väg. Till vänster visas dina val och längst ner på sidan kan du registrera dig.</p>
+                    <ul className="domains">{domains}</ul>
+                </div>
+            );
         }
     });
 
@@ -221,15 +242,16 @@
             var input;
 
             if (this.props.verify) {
-                input = <input type="text" key="1" onChange={this.props.handleCodeChange} placeholder="Kod" />;
+                input = <input type="text" key="1" onChange={this.props.handleCodeChange} placeholder="Användarkod" />;
             } else {
                 input = <input type="text" key="2" onChange={this.props.handleEmailChange} placeholder="Epost" />;
             }
 
             return (
                 <div>
+                    <h5>Registrera din väg</h5>
                     <label>{input}</label>
-                    <button type="button" onClick={this.props.handleSubmit}>Submit</button>
+                    <button type="button" onClick={this.props.handleSubmit}>Skicka</button>
                     <button type="button" onClick={this.props.handleCancel}>Avbryt</button>
                 </div>
             );
@@ -291,7 +313,7 @@
 
                         this.setState({
                             verify: true,
-                            msg: "User exists, authenticate with code",
+                            msg: "Eposten är redan registrerad, vänligen fyll i användarkoden istället eller välj avbryt för att börja om",
                             msgType: "info"
                         });
                     } else {
@@ -301,12 +323,20 @@
                         Cache.user = res.user;
                         updateStorage();
 
-                        // TODO: do we want to redirect or not?
-                        // location.pathname = "/domains/overview.html";
+                        var linkAddr = Endpoints.addPath + "?hash=" + res.path.hash;
+                        var msg = (
+                            <div>
+                                <p className="info">
+                                    Följande användarkod <code>{res.user.code}</code> används för
+                                    att logga in, det är därför viktigt att ni sparar denna.
+                                </p>
+                                <p className="share">
+                                    Följande länk kan användas för att dela med dig av
+                                    din väg <a href={linkAddr}>{linkAddr}</a>.
+                                </p>
+                            </div>
+                        );
 
-                        // TODO: fix a proper info message
-                        var msg = "Code: " + res.user.code + ", hash-link: http://127.0.0.1:4000/path/add.html?hash=" + res.path.hash;
-                        
                         this.setState({
                             verify: false,
                             done: true,
@@ -341,13 +371,13 @@
             });
         },
         clearMessage: function() {
-            this.setState({ msg: "" });
+            // this.setState({ msg: "" });
         },
         render: function() {
             var userInput;
 
             if (this.state.done) {
-                userInput = <a href="/path/profile.html">Gå till din profil</a>;
+                userInput = <a className="to-profile" href="/path/profile.html">Gå vidare till din profil</a>;
             } else {
                 userInput = (
                     <UserInput
@@ -409,17 +439,15 @@
         render: function() {
             return (
                 <form>
-                    <Domains
-                        domains={this.state.domains}
-                        addChoice={this.addChoice}
-                        removeChoice={this.removeChoice} />
-
                     <Path
                         domains={this.state.domains}
                         choices={this.state.choices}
                         sortChoices={this.sortChoices}
                         clearChoices={this.clearChoices} />
-
+                    <Domains
+                        domains={this.state.domains}
+                        addChoice={this.addChoice}
+                        removeChoice={this.removeChoice} />
                     <CreatePath choices={this.state.choices} />
                 </form>
             );
@@ -437,5 +465,19 @@
         );
 
     }, false);
+    
+    // Sidebar
+    // window.addEventListener("scroll", function() {
+    //     var header = document.getElementById("header"),
+    //         top = document.scrollTop || document.body.scrollTop;
+
+    //     if (top > (header.offsetHeight + 90)) {
+    //         if (!document.body.classList.contains("fixed-path")) {
+    //             document.body.classList.add("fixed-path");
+    //         }
+    //     } else {
+    //         document.body.classList.remove("fixed-path");
+    //     }
+    // }, false);
 // Invoke anonymous function
 })(window, document);

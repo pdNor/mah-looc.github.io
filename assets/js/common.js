@@ -11,6 +11,8 @@
     var Endpoints = {
         data: "/data.json",
         submitQuiz: "http://178.62.76.67/api/quiz"
+        // LOCAL
+        // submitQuiz: "http://localhost:3000/api/quiz"
     };
 
     // TODO: check if localStorage exists
@@ -564,6 +566,8 @@
             return Http.post(Endpoints.submitQuiz, payload, { dataType: "json"})
                 .then(function(res) { return JSON.parse(res); })
                 .then(function(res) {
+                    var submitButton;
+                    
                     Cache.user = res.user;
                     updateStorage();
 
@@ -589,7 +593,7 @@
                             progressLink.href = "/path/profile.html";
                         }
 
-                        var submitButton = byId("submit-quiz");
+                        submitButton = byId("submit-quiz");
                         submitButton.parentNode.replaceChild(progressLink, submitButton);
                     } else {
                         var retryLink = create("a");
@@ -597,7 +601,7 @@
                         retryLink.className = "submit-quiz-form";
                         retryLink.href = "";
 
-                        var submitButton = byId("submit-quiz");
+                        submitButton = byId("submit-quiz");
                         submitButton.parentNode.replaceChild(retryLink, submitButton);
                     }
                 })

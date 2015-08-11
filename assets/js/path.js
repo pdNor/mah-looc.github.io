@@ -11,7 +11,9 @@
 
     var Endpoints = {
         data: "/data.json",
-        createPath: "http://178.62.76.67/api/paths"
+        // createPath: "http://178.62.76.67/api/paths"
+        createPath: "http://localhost:3000/api/paths",
+        addPath: "http://localhost:4000/path/add.html"
     };
 
     // TODO: check if localStorage exists
@@ -97,8 +99,13 @@
                 return React.createElement(ModuleChoice, {key: i, module: choice, domain: this.getDomainById(choice.domain)});
             }, this);
 
+            if (!choices.length) {
+                choices = React.createElement("li", null, "Ingen modul vald");
+            }
+
             return (
                 React.createElement("div", {className: "path"}, 
+                    React.createElement("h5", null, "Din väg"), 
                     React.createElement("ol", {className: "choices"}, choices), 
                     React.createElement(SortButton, {sortChoices: this.props.sortChoices}), 
                     React.createElement(ClearButton, {clearChoices: this.props.clearChoices})
@@ -110,14 +117,21 @@
     // A module choice
     var ModuleChoice = React.createClass({displayName: "ModuleChoice",
         render: function() {
-            return React.createElement("li", {className: "choice"}, this.props.module.name, " ", React.createElement("small", null, "(", this.props.domain.name, ")"));
+            //  <small>({this.props.domain.name})</small>
+            return (
+                React.createElement("li", {className: "choice"}, 
+                    React.createElement("a", {href: "/domains/" + this.props.module.domain + "/modules/" + this.props.module.mid + ".html"}, 
+                    this.props.module.name
+                    )
+                )
+            );
         }
     });
 
     // A Domain of modules
     var Domain = React.createClass({displayName: "Domain",
         getInitialState: function() {
-            return { toggle: "" };
+            return { toggle: "expand" };
         },
         // Select one module
         handleModuleSelection: function(module) {
@@ -196,7 +210,12 @@
                         removeChoice: this.props.removeChoice});
             }, this);
 
-            return React.createElement("ul", {className: "domains"}, domains);
+            return (
+                React.createElement("div", null, 
+                    React.createElement("p", {className: "domains-info"}, "Välj moduler från listan nedan som ska ingå i din egen väg. Till vänster visas dina val och längst ner på sidan kan du registrera dig."), 
+                    React.createElement("ul", {className: "domains"}, domains)
+                )
+            );
         }
     });
 
@@ -221,15 +240,16 @@
             var input;
 
             if (this.props.verify) {
-                input = React.createElement("input", {type: "text", key: "1", onChange: this.props.handleCodeChange, placeholder: "Kod"});
+                input = React.createElement("input", {type: "text", key: "1", onChange: this.props.handleCodeChange, placeholder: "Användarkod"});
             } else {
                 input = React.createElement("input", {type: "text", key: "2", onChange: this.props.handleEmailChange, placeholder: "Epost"});
             }
 
             return (
                 React.createElement("div", null, 
+                    React.createElement("h5", null, "Registrera din väg"), 
                     React.createElement("label", null, input), 
-                    React.createElement("button", {type: "button", onClick: this.props.handleSubmit}, "Submit"), 
+                    React.createElement("button", {type: "button", onClick: this.props.handleSubmit}, "Skicka"), 
                     React.createElement("button", {type: "button", onClick: this.props.handleCancel}, "Avbryt")
                 )
             );
@@ -291,7 +311,7 @@
 
                         this.setState({
                             verify: true,
-                            msg: "User exists, authenticate with code",
+                            msg: "Eposten är redan registrerad, vänligen fyll i användarkoden istället eller välj avbryt för att börja om",
                             msgType: "info"
                         });
                     } else {
@@ -301,12 +321,20 @@
                         Cache.user = res.user;
                         updateStorage();
 
-                        // TODO: do we want to redirect or not?
-                        // location.pathname = "/domains/overview.html";
+                        var linkAddr = Endpoints.addPath + "?hash=" + res.path.hash;
+                        var msg = (
+                            React.createElement("div", null, 
+                                React.createElement("p", {className: "info"}, 
+                                    "Följande användarkod ", React.createElement("code", null, res.user.code), " används för" + ' ' +
+                                    "att logga in, det är därför viktigt att ni sparar denna."
+                                ), 
+                                React.createElement("p", {className: "share"}, 
+                                    "Följande länk kan användas för att dela med dig av" + ' ' +
+                                    "din väg ", React.createElement("a", {href: linkAddr}, linkAddr), "."
+                                )
+                            )
+                        );
 
-                        // TODO: fix a proper info message
-                        var msg = "Code: " + res.user.code + ", hash-link: http://127.0.0.1:4000/path/add.html?hash=" + res.path.hash;
-                        
                         this.setState({
                             verify: false,
                             done: true,
@@ -341,13 +369,13 @@
             });
         },
         clearMessage: function() {
-            this.setState({ msg: "" });
+            // this.setState({ msg: "" });
         },
         render: function() {
             var userInput;
 
             if (this.state.done) {
-                userInput = React.createElement("a", {href: "/path/profile.html"}, "Gå till din profil");
+                userInput = React.createElement("a", {className: "to-profile", href: "/path/profile.html"}, "Gå vidare till din profil");
             } else {
                 userInput = (
                     React.createElement(UserInput, {
@@ -409,17 +437,15 @@
         render: function() {
             return (
                 React.createElement("form", null, 
-                    React.createElement(Domains, {
-                        domains: this.state.domains, 
-                        addChoice: this.addChoice, 
-                        removeChoice: this.removeChoice}), 
-
                     React.createElement(Path, {
                         domains: this.state.domains, 
                         choices: this.state.choices, 
                         sortChoices: this.sortChoices, 
                         clearChoices: this.clearChoices}), 
-
+                    React.createElement(Domains, {
+                        domains: this.state.domains, 
+                        addChoice: this.addChoice, 
+                        removeChoice: this.removeChoice}), 
                     React.createElement(CreatePath, {choices: this.state.choices})
                 )
             );
@@ -437,5 +463,19 @@
         );
 
     }, false);
+    
+    // Sidebar
+    // window.addEventListener("scroll", function() {
+    //     var header = document.getElementById("header"),
+    //         top = document.scrollTop || document.body.scrollTop;
+
+    //     if (top > (header.offsetHeight + 90)) {
+    //         if (!document.body.classList.contains("fixed-path")) {
+    //             document.body.classList.add("fixed-path");
+    //         }
+    //     } else {
+    //         document.body.classList.remove("fixed-path");
+    //     }
+    // }, false);
 // Invoke anonymous function
 })(window, document);
