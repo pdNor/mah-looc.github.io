@@ -4,21 +4,20 @@ title: Domäner
 markdown: 0
 ---
 
-<h1 class="course-list-header">Domäner</h1>
+<h1 class="course-list-header">Områden</h1>
 
 <div class="row">
-
-    <ul class="content-list">
+    <ul id="domains-list">
         {% for domain_hash in site.data.domains %}
         {% assign domain = domain_hash[1] %}
-        <li>
-            <a href="/domains/{{ domain.id }}">{{ domain.name }}</a>
-            <ul>
+        <li class="domain">
+            <a class="domain-link" href="/domains/{{ domain.id }}">{{ domain.name }}</a>
+            <ul class="modules">
                 {% for module_hash in site.data.modules %}
                 {% assign module = module_hash[1] %}
                 {% if module.domain == domain.id %}
-                <li>
-                    <a href="/domains/{{ module.domain }}/modules/{{ module.id }}.html">{{ module.name }}</a>
+                <li class="module">
+                    <a class="module-link" href="/domains/{{ module.domain }}/modules/{{ module.id }}.html">{{ module.name }}</a>
                 </li>
                 {% endif %}
                 {% endfor %}
@@ -26,5 +25,4 @@ markdown: 0
         </li>
         {% endfor %}
     </ul>
-    
 </div>
