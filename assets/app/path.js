@@ -11,7 +11,7 @@
 
     var Endpoints = {
         data: "/data.json",
-        createPath: "http://0.0.0.0:3000/api/paths"
+        createPath: "http://178.62.76.67/api/paths"
     };
 
     // TODO: check if localStorage exists
@@ -19,7 +19,7 @@
     if (Storage.getItem("_mah-looc-data")) {
         Cache = JSON.parse(Storage.getItem("_mah-looc-data"));
     } else {
-        Cache = { user: null, domains: null, lastUpdated: null };
+        Cache = { user: null, domains: null, quizAnswers: null, lastUpdated: null };
     }
 
     function updateStorage() {

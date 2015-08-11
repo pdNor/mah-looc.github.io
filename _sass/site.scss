@@ -982,6 +982,9 @@ body .web-app-nav-container {
     }
 }
 
+/**
+ * Login/Logout
+ **/
 .login-form {
     margin-top: 40px;
 
@@ -1027,4 +1030,65 @@ body .web-app-nav-container {
     width: 100%;
 
     &:hover { text-decoration: underline; }
+}
+
+/**
+ * Spoilers
+ **/
+
+#content {
+    .spoiler {
+        display: none;
+    }
+
+    .spoiler.show {
+        display: block;
+    }
+
+    .show-spoiler,
+    .hide-spoiler {
+        background: transparent;
+        border: 0;
+        outline: none;
+        color: $accent-color;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+/**
+ * Quiz
+ **/
+#quiz-container {
+    label {
+        display: block;
+        position: relative;
+        margin: 0.8em 0 0.8em 1.5em;
+        padding-left: 15px;
+    }
+
+    label input {
+        position: absolute;
+        top: 3px;
+        left: -6px;
+    }
+
+    .submit-quiz-form {
+        display: block;
+        margin: 25px auto 0 auto;
+        text-align: center;
+        font-weight: normal;
+        background: transparent;
+        border: 0;
+        outline: none;
+        color: $accent-color;
+        font-size: 1.2em;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
