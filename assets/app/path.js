@@ -11,6 +11,7 @@
 
     var Endpoints = {
         data: "/data.json",
+        // Production
         createPath: "http://178.62.76.67/api/paths",
         addPath: "http://mah-looc.github.io/path/add.html"
         // LOCAL
@@ -259,6 +260,24 @@
         }
     });
 
+    // Information message after user registration
+    var CreatePathMessage = React.createClass({
+        render: function() {
+            return (
+                <div>
+                    <p className="info">
+                        Följande användarkod <code>{this.props.code}</code> används för
+                        att logga in, det är därför viktigt att ni sparar denna.
+                    </p>
+                    <p className="share">
+                        Följande länk kan användas för att dela med dig av
+                        din väg <a href={this.props.href}>{this.props.href}</a>.
+                    </p>
+                </div>
+            );
+        }
+    });
+
     // Form for creating a path
     var CreatePath = React.createClass({
         getInitialState: function() {
@@ -323,19 +342,8 @@
                         Cache.user = res.user;
                         updateStorage();
 
-                        var linkAddr = Endpoints.addPath + "?hash=" + res.path.hash;
-                        var msg = (
-                            <div>
-                                <p className="info">
-                                    Följande användarkod <code>{res.user.code}</code> används för
-                                    att logga in, det är därför viktigt att ni sparar denna.
-                                </p>
-                                <p className="share">
-                                    Följande länk kan användas för att dela med dig av
-                                    din väg <a href={linkAddr}>{linkAddr}</a>.
-                                </p>
-                            </div>
-                        );
+                        var href = Endpoints.addPath + "?hash=" + res.path.hash;
+                        var msg = <CreatePathMessage code={res.user.code} href={href} />;
 
                         this.setState({
                             verify: false,
