@@ -11,9 +11,12 @@
 
     var Endpoints = {
         data: "/data.json",
-        // createPath: "http://178.62.76.67/api/paths"
-        createPath: "http://localhost:3000/api/paths",
-        addPath: "http://localhost:4000/path/add.html"
+        // Production
+        createPath: "http://178.62.76.67/api/paths",
+        addPath: "http://mah-looc.github.io/path/add.html"
+        // LOCAL
+        // createPath: "http://localhost:3000/api/paths",
+        // addPath: "http://localhost:4000/path/add.html"
     };
 
     // TODO: check if localStorage exists
@@ -257,6 +260,24 @@
         }
     });
 
+    // Information message after user registration
+    var CreatePathMessage = React.createClass({displayName: "CreatePathMessage",
+        render: function() {
+            return (
+                React.createElement("div", null, 
+                    React.createElement("p", {className: "info"}, 
+                        "Följande användarkod ", React.createElement("code", null, this.props.code), " används för" + ' ' +
+                        "att logga in, det är därför viktigt att ni sparar denna."
+                    ), 
+                    React.createElement("p", {className: "share"}, 
+                        "Följande länk kan användas för att dela med dig av" + ' ' +
+                        "din väg ", React.createElement("a", {href: this.props.href}, this.props.href), "."
+                    )
+                )
+            );
+        }
+    });
+
     // Form for creating a path
     var CreatePath = React.createClass({displayName: "CreatePath",
         getInitialState: function() {
@@ -321,19 +342,8 @@
                         Cache.user = res.user;
                         updateStorage();
 
-                        var linkAddr = Endpoints.addPath + "?hash=" + res.path.hash;
-                        var msg = (
-                            React.createElement("div", null, 
-                                React.createElement("p", {className: "info"}, 
-                                    "Följande användarkod ", React.createElement("code", null, res.user.code), " används för" + ' ' +
-                                    "att logga in, det är därför viktigt att ni sparar denna."
-                                ), 
-                                React.createElement("p", {className: "share"}, 
-                                    "Följande länk kan användas för att dela med dig av" + ' ' +
-                                    "din väg ", React.createElement("a", {href: linkAddr}, linkAddr), "."
-                                )
-                            )
-                        );
+                        var href = Endpoints.addPath + "?hash=" + res.path.hash;
+                        var msg = React.createElement(CreatePathMessage, {code: res.user.code, href: href});
 
                         this.setState({
                             verify: false,
