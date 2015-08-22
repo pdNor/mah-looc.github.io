@@ -4,4 +4,6 @@ title: Pekare
 domain: D02
 ---
 
-_"Skillnaden mellan olika språk är i grunden dess olika härkomst. C++ har helt andra designmål än exemplevis C&#35; och Java"_
+_"Pekare är variabler, men istället för att innehålla data så innehåller variabeln en pekare till minnesutrymmet där datan finns."_
+
+Pekare är ett viktigt koncept i C++ och används för dynamisk minnesallokering, datastrukturer m.m.
