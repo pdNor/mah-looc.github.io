@@ -4,6 +4,6 @@ title: Minneshantering
 domain: D04
 ---
 
-_"För att implementera robusta program krävs det att en C++-programmerare kan lite om program och minne."_
+_"För att implementera robusta program krävs det att en C++-programmerare kan lite om minneshantering."_
 
-Här får du lära dig om var data i dit program lagras. Är det på heapen eller stacken? Eller kanske någon annan stans?
+C++ har ingen automatisk minneshantering (garbage collection) utan all dynamiska objekt som inte lämnas tillbaka läcker minne.
