@@ -1,7 +1,7 @@
 ---
 layout: domain
-title: Strängar
+title: Strangar
 domain: D08
 ---
 
-_"xxx"_
+_"yyyy"_
