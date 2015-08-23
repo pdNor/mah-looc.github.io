@@ -12,11 +12,11 @@
     var Endpoints = {
         data: "/data.json",
         // Production
-        createPath: "http://178.62.76.67/api/paths",
-        addPath: "http://mah-looc.github.io/path/add.html"
+        // createPath: "http://178.62.76.67/api/paths",
+        // addPath: "http://mah-looc.github.io/path/add.html"
         // LOCAL
-        // createPath: "http://localhost:3000/api/paths",
-        // addPath: "http://localhost:4000/path/add.html"
+        createPath: "http://localhost:3000/api/paths",
+        addPath: "http://localhost:4000/path/add.html"
     };
 
     // TODO: check if localStorage exists
@@ -308,7 +308,7 @@
             }
 
             // TODO: fix a proper loading animation
-            this.setState({ msg: "Loading", msgType: "loading" });
+            this.setState({ msg: "Vänligen vänta...", msgType: "info loading" });
 
             // Data sent to the server
             var payload = {
@@ -316,6 +316,7 @@
                 path: { choices: this.props.choices }
             };
 
+            // Send user code with payload
             if (this.state.verify) {
                 payload.code = this.state.code;
             }
@@ -359,8 +360,8 @@
 
                     this.setState({
                         verify: false,
-                        msg: "An error occurred",
-                        msgType: "error"
+                        msg: "Ett fel uppstod, vänligen försök igen",
+                        msgType: "info error"
                     });
                 }.bind(this));
         },
@@ -473,19 +474,5 @@
         );
 
     }, false);
-    
-    // Sidebar
-    // window.addEventListener("scroll", function() {
-    //     var header = document.getElementById("header"),
-    //         top = document.scrollTop || document.body.scrollTop;
-
-    //     if (top > (header.offsetHeight + 90)) {
-    //         if (!document.body.classList.contains("fixed-path")) {
-    //             document.body.classList.add("fixed-path");
-    //         }
-    //     } else {
-    //         document.body.classList.remove("fixed-path");
-    //     }
-    // }, false);
 // Invoke anonymous function
 })(window, document);

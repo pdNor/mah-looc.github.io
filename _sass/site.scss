@@ -662,6 +662,24 @@ table tbody tr:nth-child(odd) {
     font-family: Georgia;
 }
 
+.content p.info.loading {
+    border-color: #f7e274;
+}
+
+.content p.info.loading:before {
+    background-color: #f7e274;
+    color: #666666;
+}
+
+.content p.info.error {
+    border-color: #ef7474;
+}
+
+.content p.info.error:before {
+    background-color: #ef7474;
+    color: #000000;
+}
+
 /**
  * Top link
  **/
@@ -1170,6 +1188,8 @@ body .web-app-nav-container {
  * Quiz
  **/
 #quiz-container {
+    display: none;
+    
     label {
         display: block;
         position: relative;
@@ -1196,6 +1216,19 @@ body .web-app-nav-container {
         cursor: pointer;
 
         &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .toggle-question-button {
+        background: transparent;
+        border: 0;
+        color: $accent-color;
+        font-size: 14px;
+        outline: none;
+
+        &:hover {
+            cursor: pointer;
             text-decoration: underline;
         }
     }

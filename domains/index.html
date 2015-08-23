@@ -8,8 +8,9 @@ markdown: 0
 
 <div class="row">
     <ul id="domains-list">
-        {% for domain_hash in site.data.domains %}
-        {% assign domain = domain_hash[1] %}
+        {% for i in (1..site.data.domains.size) %}
+        {% capture idx %}D0{{ i }}{% endcapture %}
+        {% assign domain = site.data.domains[idx] %}
         <li class="domain">
             <a class="domain-link" href="/domains/{{ domain.id }}">{{ domain.name }}</a>
             <ul class="modules">
