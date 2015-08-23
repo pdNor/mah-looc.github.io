@@ -11,6 +11,7 @@
 
     var Endpoints = {
         data: "/data.json",
+        // Production
         submitQuiz: "http://178.62.76.67/api/quiz"
         // LOCAL
         // submitQuiz: "http://localhost:3000/api/quiz"
