@@ -12,9 +12,9 @@
 
     var Endpoints = {
         // Production
-        addPath: "http://178.62.76.67/api/add"
+        // addPath: "http://178.62.76.67/api/add"
         // LOCAL
-        // addPath: "http://0.0.0.0:3000/api/add"
+        addPath: "http://0.0.0.0:3000/api/add"
     };
 
     // TODO: check if localStorage exists
@@ -95,8 +95,9 @@
                     this.setState({ done: true });
                     this.props.setMessage(
                         <span>
-                            Vägen är nu tillagd till din användare!
-                            Gå vidare till <a href="/path/profile.html">din profil</a> för att påbörja din väg.
+                            Vägen är nu tillagd till din användare! Använd koden <code>{res.user.code}</code> för
+                            att logga in. Du kan nu gå vidare till din <a href="/path/profile.html">profil</a> för
+                            att påbörja din väg.
                         </span>
                     );
                 }.bind(this))
