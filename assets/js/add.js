@@ -12,9 +12,9 @@
 
     var Endpoints = {
         // Production
-        // addPath: "http://178.62.76.67/api/add"
+        addPath: "http://178.62.76.67/api/add"
         // LOCAL
-        addPath: "http://0.0.0.0:3000/api/add"
+        // addPath: "http://0.0.0.0:3000/api/add"
     };
 
     // TODO: check if localStorage exists

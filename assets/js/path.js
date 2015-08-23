@@ -12,11 +12,11 @@
     var Endpoints = {
         data: "/data.json",
         // Production
-        // createPath: "http://178.62.76.67/api/paths",
-        // addPath: "http://mah-looc.github.io/path/add.html"
+        createPath: "http://178.62.76.67/api/paths",
+        addPath: "http://mah-looc.github.io/path/add.html"
         // LOCAL
-        createPath: "http://localhost:3000/api/paths",
-        addPath: "http://localhost:4000/path/add.html"
+        // createPath: "http://localhost:3000/api/paths",
+        // addPath: "http://localhost:4000/path/add.html"
     };
 
     // TODO: check if localStorage exists
