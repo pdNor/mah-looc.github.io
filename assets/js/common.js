@@ -6,10 +6,12 @@
     // Dependencies
     var Http = window.qwest,
         Storage = window.localStorage,
+        Location = window.location,
         Cache;
 
     var Endpoints = {
         data: "/data.json",
+        // Production
         submitQuiz: "http://178.62.76.67/api/quiz"
         // LOCAL
         // submitQuiz: "http://localhost:3000/api/quiz"
@@ -32,6 +34,7 @@
         if (Storage.getItem("_mah-looc-data")) {
             var c = JSON.parse(Storage.getItem("_mah-looc-data"));
 
+            // Refill cache object (ex. user logs in then submits a quiz)
             if (c.user) {
                 Cache.user = c.user;
                 updateStorage();
@@ -79,6 +82,12 @@
         }
 
         return arr;
+    }
+
+    // Shuffle an array, taken from http://stackoverflow.com/a/6274381
+    function shuffle(o){
+        for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
     }
 
     // Return element by id
@@ -173,7 +182,7 @@
 
         // Filter out exact matches
         var found = anchors.filter(function(a) {
-            return a.href == location.href.replace(/\/+$/, "");
+            return a.href == Location.href.replace(/\/+$/, "");
         }).map(function(a) {
             a.classList.add("current");
         });
@@ -185,7 +194,7 @@
 
         // Otherwise use the starting pathname
         anchors.filter(function(a) {
-            return startsWith(a.href, location.href);
+            return startsWith(a.href, Location.href);
         }).forEach(function(a) {
             a.classList.add("current");
         });
@@ -198,7 +207,7 @@
         var anchors = bySelector("#sidebar ul ul a");
 
         anchors.filter(function(a) {
-            return startsWith(a.href, location.href);
+            return startsWith(a.href, Location.href);
         }).forEach(function(a) {
             a.classList.add("active");
             // TODO: research a better solution for this.
@@ -231,7 +240,7 @@
         var anchors = byTag("a");
 
         anchors.filter(function(a) {
-            return !startsWith(location.protocol + "//" + location.host, a.href);
+            return !startsWith(Location.protocol + "//" + Location.host, a.href);
         }).forEach(function(a) {
             a.target = "_blank";
         });
@@ -294,9 +303,9 @@
             }
 
             if('href' in curnode &&
-               (curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host))) {
+               (curnode.href.indexOf('http') || ~curnode.href.indexOf(Location.host))) {
                 e.preventDefault();
-                location.href = curnode.href;
+                Location.href = curnode.href;
             }
         });
     }
@@ -432,7 +441,10 @@
         var container = create("div");
         var alpha = ["a", "b", "c", "d", "e", "f", "g", "h", "j"];
 
-        toArray(alternativeList.children).forEach(function(li, i) {
+        container.id = "answer-" + index;
+
+        // Create the alternatives (and shuffle)
+        shuffle(toArray(alternativeList.children).map(function(li, i) {
             var label = create("label");
             var input = create("input");
             input.type = isMultiple ? "checkbox" : "radio";
@@ -444,10 +456,11 @@
 
             label.appendChild(input);
             label.innerHTML += li.innerHTML;
+            return label;
+        })).forEach(function(label) {
             container.appendChild(label);
         });
 
-        // TODO: shuffle alternatives?
         return container;
     }
 
@@ -460,14 +473,74 @@
             return false;
         }
 
-        // convert <ul> of alternatives to radio/checkbutton inputs
-        alternativeLists.forEach(function(alternativeList, index) {
-            var formAlternatives = createFormAlternatives(alternativeList, index);
-            alternativeList.parentNode.replaceChild(formAlternatives, alternativeList);
-        });
+        // Show quiz if an active user exists
+        if (userExists()) {
+            var quizContainer = byId("quiz-container");
+            quizContainer.style.display = "block";
+        } else {
+            return false;
+        }
 
+        var questionHeaders = bySelector("#quiz-container h3");
         var quizForm = byId("quiz-form"),
             quizMessage = byId("quiz-message");
+
+        // convert <ul> of alternatives to radio/checkbutton inputs
+        alternativeLists.map(function(alternativeList, index) {
+            var formAlternatives = createFormAlternatives(alternativeList, index);
+            alternativeList.parentNode.replaceChild(formAlternatives, alternativeList);
+
+            return {
+                header: questionHeaders[index],
+                list: formAlternatives
+            };
+        }).map(function(item) {
+            // TODO: better solution for all of this
+            // We go from one header to the list of alternatives
+            // and append all the elements to a div and then create
+            // a button at the end which toggles the CSS display
+            // attribute of the div. Unsure of the performance.
+            var div = create("div"),
+                cur = item.header,
+                prev,
+                i = 0; // incase of bugs etc. so we dont crash the browser
+
+            div.className = "toggle-question";
+            div.style.display = "none";
+
+            while (cur !== item.list || i >= 50) {
+                if (prev && prev.nodeType == document.ELEMENT_NODE && prev !== item.header) {
+                    div.appendChild(prev);
+                }
+
+                prev = cur;
+                cur = cur.nextSibling;
+                i++;
+            }
+
+            quizForm.insertBefore(div, item.list);
+            div.appendChild(item.list);
+
+            var button = create("button");
+            button.type = "button";
+            button.className = "toggle-question-button";
+            button.textContent = "Visa frågan";
+
+            quizForm.insertBefore(button, div);
+
+            button.addEventListener("click", function() {
+                if (div.style.display == "none") {
+                    div.style.display = "block";
+                    button.textContent = "Dölj frågan";
+                } else {
+                    div.style.display = "none";
+                    button.textContent = "Visa frågan";
+                }
+            });
+
+            return div;
+        });
+
 
         quizForm.addEventListener("submit", function(e) {
             e.preventDefault();
@@ -512,6 +585,7 @@
                         return acc;
                     }, {});
 
+            // DEBUG
             console.log(formData);
 
             var quizId = byId("quiz-id").value,
@@ -551,6 +625,7 @@
             quizMessage.textContent = "Antal rätt svar: " + correctAnswers + "/" + currQuizAnswers.answers.length;
             quizMessage.className = "info";
 
+            // DEBUG
             console.log(results);
 
             var payload = {
@@ -607,6 +682,7 @@
                 })
                 .catch(function(e, url) {
                     // TODO: better error handling
+                    // DEBUG
                     console.log(e, url);
                 });
         });
@@ -615,7 +691,7 @@
     }
 
     // Create the button for showing/hiding the spoiler text
-    function createShowSpoilerButton(spoiler) {
+    function createSpoilerButton(spoiler) {
         var button = create("button");
         button.type = "button";
         button.className = "show-spoiler";
@@ -649,8 +725,8 @@
         }
 
         spoilers.forEach(function(spoiler) {
-            var button = createShowSpoilerButton(spoiler);
-            // TODO: better solution for this (icase nextSibling is undefined)?
+            var button = createSpoilerButton(spoiler);
+            // TODO: better solution for this (incase nextSibling is undefined)?
             spoiler.parentNode.insertBefore(button, spoiler.nextSibling);
         });
         

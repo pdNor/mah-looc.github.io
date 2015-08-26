@@ -1,4 +1,4 @@
 domain: D012
-name: Introduktion
+name: Introduktion till std::vector
 id: M30
 rel: [M28, M29]

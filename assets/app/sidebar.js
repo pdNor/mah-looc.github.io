@@ -33,6 +33,15 @@
     if (Cache.user) console.log("User object:", Cache.user);
     if (Cache.domains) console.log("Domains object:", Cache.domains);
 
+    // Show/hide the quiz HTML container
+    function showQuiz(show) {
+        var quiz = document.getElementById("quiz-container");
+
+        if (quiz) {
+            quiz.style.display = show ? "block" : "none";
+        }
+    }
+
     // Fetch all domains from the server and cache them in localStorage
     function fetchDomains(cb) {
         if (Cache.domains) {
@@ -168,6 +177,7 @@
 
             Cache.user = user;
             updateStorage();
+            showQuiz(true);
         },
         logoutUser: function() {
             this.setState({
@@ -177,6 +187,7 @@
 
             Cache.user = null;
             updateStorage();
+            showQuiz(false);
         },
         toggleShow: function() {
             this.setState({ show: !this.state.show });
