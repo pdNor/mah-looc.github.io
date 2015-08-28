@@ -1,9 +1,9 @@
 ---
 layout: domain
-title: Templates
-domain: D011
+title: Program och minne
+domain: D05
 ---
 
-_"Templates gör det möjligt för en funktion eller en klass att fungera för olika datatyper utan att behöva skrivas om"_
+_"För att implementera robusta program krävs det att en C++-programmerare kan lite om program och minne."_
 
-Klasstemplates definierar en grupp av relaterade klasser som baseras på argumentstypen som används när klassen instansieras. Funktionstemplats liknar klasstemplates men de avser istället en grupp av funktioner som baserat på samma kod agerar på olika typer eller klasser.
+Här får du lära dig om var data i dit program lagras. Är det på heapen eller stacken? Eller kanske någon annan stans?
