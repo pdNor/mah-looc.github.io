@@ -1,0 +1,20 @@
+<html>
+<head>
+</head>
+<Body>
+<script>
+var x = document.getElementsByTagName("div");
+for(i=0;i<x.length;i++){
+	x[i].style.color = "red";
+}
+function setAnswer(id){
+var x = document.getElementsByTagName("div");
+x[id-1].style.color = "black";
+}
+</script>
+<button onclick="setAnswer(1);">Hämta svar</button>
+<div>hesan svejsan</div>
+<div>hesan svejsan</div>
+</body>
+
+</html>

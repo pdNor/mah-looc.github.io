@@ -1,17 +1,9 @@
 ---
 layout: domain
-title: STL
-domain: D012
+title: In- och utmatning
+domain: D09
 ---
 
-_"STL står för Standard Template Library och tillhandahåller en uppsättning generella klass- och funktionstempaltes som implementerar vanligt förekommanade algoritmer och datastrukturer såsom vektorer, listor, köer och stackar."_
+_"C++ använder  *streams* för in- och utmatning till skärmen, tangentbord och filer."_
 
-STL tillhandahåller fyra olika komponenter
-
-- algorithms, 
-
-- containers, 
-
-- dunctional and 
-
-- iterator.
+Ett program kan lägga till eller ta ut tecken från en *stream*.
