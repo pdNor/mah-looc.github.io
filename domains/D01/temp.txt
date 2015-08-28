@@ -1,4 +1,4 @@
-﻿---
+---
 layout: module
 title: Introduktion
 domain: D01
@@ -145,3 +145,5 @@ Programmet kompilerar men crashar under runtime. Detta för att res försvinner 
 * Det är likvärdigt att nyttja en pekare istället för en referens som funktionsparameter. Resultatet blir detsamma! 
 * Skulle man behöva skicka in någonting stort som inparameter bör man skicka det som referens, då sker ingen kopiering. 
 * Man kan returnera flera värden/objekt från en funktion genom att returnera en struct eller en klass.
+
+
