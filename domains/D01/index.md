@@ -1,7 +1,9 @@
 ---
 layout: domain
-title: Referenser
-domain: D01
+title: Karakteristiska drag
+domain: D010
 ---
 
-_"En referens definierar ett alternativt namn på ett objekt. En referens är inte ett objekt En referens är bara ett annat namn för ett redan existerande objekt."_
+_"Skillnaden mellan olika språk är i grunden dess olika härkomst. C++ har helt andra designmål än exemplevis C&#35; och Java"_
+
+I detta område behandlas konstruktioner som skiljer sig från språk som Java och C&#35; och/eller är specifika för C++.
