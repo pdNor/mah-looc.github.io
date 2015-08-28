@@ -556,6 +556,18 @@
             quizMessage.textContent = "";
             quizMessage.className = "";
 
+            var quizId = byId("quiz-id").value,
+                moduleId = byId("module-id").value;
+
+            // Check if the user has the current module in his/her path
+            var userCanTakeQuiz = Cache.user.paths[0].modules.some(function(module) {
+                return module.mid == moduleId;
+            });
+
+            if (!userCanTakeQuiz) {
+                return false;
+            }
+
             // Serialize the form data into an object
             var formData = toArray(e.target)
                     .filter(function(el) {
@@ -588,14 +600,9 @@
             // DEBUG
             console.log(formData);
 
-            var quizId = byId("quiz-id").value,
-                moduleId = byId("module-id").value;
-
             // Reduce to the current quiz
             var currQuizAnswers = Cache.quizAnswers
                     .filter(function(a) { return a.id == quizId; })[0];
-
-            // TODO: check if no quiz was found?
 
             var results = currQuizAnswers.answers.map(function(answer, i) {
                 // TODO: check if no answers was found by user?
@@ -611,8 +618,11 @@
                     return false;
                 }
 
-                // TODO: this doesnt really work with shuffled answers? perhaps if we sort them first?
-                return answer.correct.every(function(a, i) {
+                // TODO: might solve the problem below?
+                userAnswer.sort();
+
+                // TODO: check if this affects the score in some way
+                return answer.correct.sort().every(function(a, i) {
                     return a == userAnswer[i];
                 });
             });
@@ -746,8 +756,6 @@
         setTargetForExternalLinks();
         extendCodeExamples();
         setupSpoilers();
-
-        // TODO: Quiz should not be shown or working if no user is active?
         setupQuiz();
 
         // Only add web app navigation if we're in standalone mode

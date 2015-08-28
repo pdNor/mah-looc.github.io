@@ -21,6 +21,6 @@ answers:
 
   - correct: ["c", "e"]
     type: "checkbox"
-	
+
   - correct: "b"
     type: "radio"
