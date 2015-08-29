@@ -1,7 +1,7 @@
 ---
 layout: domain
 title: Grundläggande datatyper
-domain: D05
+domain: D011
 ---
 
 _"Grundläggaande datatyper är typer som är implementerade direkt i språket, i detta fall C++."_
