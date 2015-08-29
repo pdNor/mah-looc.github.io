@@ -1,7 +1,7 @@
 ---
 layout: domain
 title: In- och utmatning
-domain: D09
+domain: D012
 ---
 
 _"C++ använder  *streams* för in- och utmatning till skärmen, tangentbord och filer."_
