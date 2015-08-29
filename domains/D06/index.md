@@ -1,7 +1,7 @@
 ---
 layout: domain
 title: Strangar
-domain: D08
+domain: D06
 ---
 
 _"Strängar är objekt som representerar en sekvens av tecken"_

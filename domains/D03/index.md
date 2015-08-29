@@ -1,7 +1,7 @@
 ---
 layout: domain
 title: Pekare
-domain: D02
+domain: D03
 ---
 
 _"Pekare är variabler, men istället för att innehålla data så innehåller variabeln en pekare till minnesutrymmet där datan finns."_

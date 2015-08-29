@@ -1,7 +1,7 @@
 ---
 layout: domain
 title: Klasser
-domain: D03
+domain: D02
 ---
 
 _"En anledning till att C++ skapades vara för att lägga till objektorientring till programmeringsspråket C."_

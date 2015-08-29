@@ -1,9 +1,23 @@
 ---
 layout: domain
-title: Program och minne
+title: Grundläggande datatyper
 domain: D05
 ---
 
-_"För att implementera robusta program krävs det att en C++-programmerare kan lite om program och minne."_
+_"Grundläggaande datatyper är typer som är implementerade direkt i språket, i detta fall C++."_
 
-Här får du lära dig om var data i dit program lagras. Är det på heapen eller stacken? Eller kanske någon annan stans?
+Grundläggande datatyper är:
+
+- character
+
+- integer
+
+- floating point
+
+- boolean
+
+- double floating point
+
+- void
+
+- wide character

@@ -1,7 +1,7 @@
 ---
 layout: domain
 title: C-arrayer
-domain: D07
+domain: D05
 ---
 
 _"En array är en serie element av samma typ placerat i ett sammanhängande minnesutrymme och som kan adresseras individuellt genom ett index"_
