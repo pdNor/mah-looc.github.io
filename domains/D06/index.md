@@ -1,6 +1,6 @@
 ---
 layout: domain
-title: Strangar
+title: Strängar
 domain: D06
 ---
 
