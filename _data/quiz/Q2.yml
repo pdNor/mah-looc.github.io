@@ -1,6 +1,6 @@
 # Format for a quiz
 
-id: Q1
+id: Q2
 
 level: 100
 
@@ -15,9 +15,3 @@ answers:
 
   - correct: "a"
     type: "radio"
-
-  - correct: "a"
-    type: "radio"
-
-  - correct: ["a", "c"]
-    type: "checkbox"
