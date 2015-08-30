@@ -155,7 +155,7 @@
 
         // d3 graph
         var width = 700,
-            height = 400;
+            height = 550;
 
         // TODO: poor solution.. :p
         var color = d3.scale.category20();
@@ -178,9 +178,9 @@
         var marginTop = (height - (30 * groups.length)) / 2;
 
         var force = d3.layout.force()
-                .charge(-200)
-                .linkDistance(200)
-                .linkStrength(0.1)
+                .charge(-150)
+                .linkDistance(150)
+                .linkStrength(0)
                 .size([width, height]);
 
         var svg = d3.select("#graph-container")
@@ -196,20 +196,20 @@
                 .attr("class", "legend");
 
         legend.append("rect")
-            .attr("width", 20)
-            .attr("height", 20)
+            .attr("width", 15)
+            .attr("height", 15)
             .attr("fill", function(d) { return color(d.group); })
             .attr("y", function(d, i) {
-                return marginTop + ((d.group - 1) * 20 + (i * 10));
+                return marginTop + ((i - 1) * 15 + (i * 10));
             });
 
         legend.append("text")
-            .attr("height", 20)
-            .attr("x", 25)
+            .attr("height", 15)
+            .attr("x", 20)
             .attr("y", function(d, i) {
-                return marginTop + (d.group * 20 + (i * 10) - 5);
+                return marginTop + (i * 15 + (i * 10) - 3);
             })
-            .style("font-size", 14)
+            .style("font-size", 13)
             .text(function(d) { return d.name; });
 
         force
@@ -223,7 +223,7 @@
                 .enter()
                 .append("line")
                 .attr("class", "link")
-                .style("stroke-width", 1.5);
+                .style("stroke-width", 1);
 
         var node = svg.selectAll(".node")
                 .data(nodes)
@@ -232,7 +232,7 @@
                 .attr("class", "node")
                 .attr("cx", function(d) { return d.x; })
                 .attr("cy", function(d) { return d.y; })
-                .attr("r", 15)
+                .attr("r", 12)
                 .style("stroke", function(d) { return color(d.group); })
                 .style("fill", function(d) { return color(d.group); })
                 .style("fill-opacity", function(d) {
@@ -246,19 +246,19 @@
             .text(function(d) { return d.name; });
         
         function tick(e) {
-            var k = e.alpha * 6;
+            var k = e.alpha * 5;
 
             nodes.forEach(function(n, i) {
                 n.x += n.group & 2 ? k : -k;
                 n.y += n.group & 1 ? k : -k;
             });
 
-            node.attr("cx", function(d) { return d.x; })
+            node.attr("cx", function(d) { return d.x + 40; })
                 .attr("cy", function(d) { return d.y; });
 
-            link.attr("x1", function(d) { return d.source.x; })
+            link.attr("x1", function(d) { return d.source.x + 40; })
                 .attr("y1", function(d) { return d.source.y; })
-                .attr("x2", function(d) { return d.target.x; })
+                .attr("x2", function(d) { return d.target.x + 40; })
                 .attr("y2", function(d) { return d.target.y; });
         }
     });
