@@ -1,7 +1,5 @@
 ---
-layout: default
-title: Domäner
-markdown: 0
+layout: domain
 ---
 
 <h1 class="course-list-header">Områden</h1>
@@ -14,8 +12,9 @@ markdown: 0
         <li class="domain">
             <a class="domain-link" href="/domains/{{ domain.id }}">{{ domain.name }}</a>
             <ul class="modules">
-                {% for module_hash in site.data.modules %}
-                {% assign module = module_hash[1] %}
+                {% for j in (1..site.data.modules.size) %}
+                {% capture jdx %}M{{ j }}{% endcapture %}
+                {% assign module = site.data.modules[jdx] %}
                 {% if module.domain == domain.id %}
                 <li class="module">
                     <a class="module-link" href="/domains/{{ module.domain }}/modules/{{ module.id }}.html">{{ module.name }}</a>
