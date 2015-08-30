@@ -1,4 +1,4 @@
 domain: D05
-name: Mer om statiska arrayer
+name: Initiering av statiska C-arrayer
 id: M21
-rel: [M10]
+rel: [M10, M18]
