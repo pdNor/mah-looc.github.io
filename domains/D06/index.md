@@ -1,9 +1,9 @@
 ---
 layout: domain
-title: Headerfiler
+title: Strängar
 domain: D06
 ---
 
-_"Syftet med headerfiler är att deklarera varabler och funktioner som andra filer kan använda"_
+_"Strängar är objekt som representerar en sekvens av tecken"_
 
-Headerfilens funktion är att separera deklarationen från implementationen. Headerfiler går även under namnet include-filer.
+I C++ kan man hantera strängar antingen genom en array av *chars* (C-strings) eller som C++-strängar d.v.s. std::string.

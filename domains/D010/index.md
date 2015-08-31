@@ -1,9 +1,9 @@
 ---
 layout: domain
-title: Karakteristiska drag
+title: Headerfiler
 domain: D010
 ---
 
-_"Skillnaden mellan olika språk är i grunden dess olika härkomst. C++ har helt andra designmål än exemplevis C&#35; och Java"_
+_"Syftet med headerfiler är att deklarera varabler och funktioner som andra filer kan använda"_
 
-I detta område behandlas konstruktioner som skiljer sig från språk som Java och C&#35; och/eller är specifika för C++.
+Headerfilens funktion är att separera deklarationen från implementationen. Headerfiler går även under namnet include-filer.

@@ -1,9 +1,7 @@
 ---
 layout: domain
-title: In- och utmatning
+title: Referenser
 domain: D09
 ---
 
-_"C++ använder  *streams* för in- och utmatning till skärmen, tangentbord och filer."_
-
-Ett program kan lägga till eller ta ut tecken från en *stream*.
+_"En referens definierar ett alternativt namn på ett objekt. En referens är inte ett objekt En referens är bara ett annat namn för ett redan existerande objekt."_

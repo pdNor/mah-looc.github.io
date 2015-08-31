@@ -1,9 +1,9 @@
 ---
 layout: domain
-title: Strangar
+title: Templates
 domain: D08
 ---
 
-_"Strängar är objekt som representerar en sekvens av tecken"_
+_"Templates gör det möjligt för en funktion eller en klass att fungera för olika datatyper utan att behöva skrivas om"_
 
-I C++ kan man hantera strängar antingen genom en array av *chars* (C-strings) eller som C++-strängar d.v.s. std::string.
+Klasstemplates definierar en grupp av relaterade klasser som baseras på argumentstypen som används när klassen instansieras. Funktionstemplats liknar klasstemplates men de avser istället en grupp av funktioner som baserat på samma kod agerar på olika typer eller klasser.

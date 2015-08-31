@@ -1,9 +1,9 @@
 ---
 layout: domain
-title: Klasser
+title: Pekare
 domain: D03
 ---
 
-_"En anledning till att C++ skapades vara för att lägga till objektorientring till programmeringsspråket C."_
+_"Pekare är variabler, men istället för att innehålla data så innehåller variabeln en pekare till minnesutrymmet där datan finns."_
 
-En klass specificerar hur ett objekt skall se ut och kan ses som en *ritning* över vad som skall finnas i ett objekt.
+Pekare är ett viktigt koncept i C++ och används för dynamisk minnesallokering, datastrukturer m.m.

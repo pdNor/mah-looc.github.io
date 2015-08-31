@@ -1,9 +1,23 @@
 ---
 layout: domain
-title: Templates
+title: Grundläggande datatyper
 domain: D011
 ---
 
-_"Templates gör det möjligt för en funktion eller en klass att fungera för olika datatyper utan att behöva skrivas om"_
+_"Grundläggaande datatyper är typer som är implementerade direkt i språket, i detta fall C++."_
 
-Klasstemplates definierar en grupp av relaterade klasser som baseras på argumentstypen som används när klassen instansieras. Funktionstemplats liknar klasstemplates men de avser istället en grupp av funktioner som baserat på samma kod agerar på olika typer eller klasser.
+Grundläggande datatyper är:
+
+- character
+
+- integer
+
+- floating point
+
+- boolean
+
+- double floating point
+
+- void
+
+- wide character

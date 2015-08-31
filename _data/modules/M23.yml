@@ -1,4 +1,4 @@
-domain: D08
+domain: D06
 name: "std::string"
 id: M23
 rel: [M24, M25, M26]

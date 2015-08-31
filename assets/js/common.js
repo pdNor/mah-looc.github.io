@@ -735,6 +735,7 @@
         }
 
         spoilers.forEach(function(spoiler) {
+            console.log(spoiler);
             var button = createSpoilerButton(spoiler);
             // TODO: better solution for this (incase nextSibling is undefined)?
             spoiler.parentNode.insertBefore(button, spoiler.nextSibling);

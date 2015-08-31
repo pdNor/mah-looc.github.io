@@ -1,4 +1,4 @@
-domain: D02
-name: Ännu mer om pekare
+domain: D03
+name: Pil-operatorn
 id: M6
-rel: [M8, M9]
+rel: [M8, M9, M3]

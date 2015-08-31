@@ -1,4 +1,4 @@
-domain: D05
-name: Introduktion till program och minne
+domain: D04
+name: Stack och heap
 id: M13
-rel: [M10, M11, M12]
+rel: [M10, M11, M12, M10]

@@ -1,9 +1,17 @@
 ---
 layout: domain
-title: C-arrayer
+title: STL
 domain: D07
 ---
 
-_"En array är en serie element av samma typ placerat i ett sammanhängande minnesutrymme och som kan adresseras individuellt genom ett index"_
+_"STL står för Standard Template Library och tillhandahåller en uppsättning generella klass- och funktionstempaltes som implementerar vanligt förekommanade algoritmer och datastrukturer såsom vektorer, listor, köer och stackar."_
 
-Man skiljer på statiska och dynamiska arrayer. Statiska arrayer har en storlek redan vid kompilering medan dynamiskt allokerade arrayer får sin längd under körning.
+STL tillhandahåller fyra olika komponenter
+
+- algorithms,
+
+- containers,
+
+- dunctional and
+
+- iterator.

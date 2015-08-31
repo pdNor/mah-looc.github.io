@@ -1,4 +1,4 @@
-domain: D02
+domain: D03
 name: Mer om pekare
 id: M4
-rel: [M8]
+rel: [M8, M3]

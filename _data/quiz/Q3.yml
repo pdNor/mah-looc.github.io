@@ -12,15 +12,3 @@ level: 100
 answers:
   - correct: "a"
     type: "radio"
-
-  - correct: "c"
-    type: "radio"
-
-  - correct: "b"
-    type: "radio"
-
-  - correct: ["c", "e"]
-    type: "checkbox"
-
-  - correct: "b"
-    type: "radio"

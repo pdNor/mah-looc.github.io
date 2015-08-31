@@ -1,4 +1,4 @@
-domain: D05
-name: Typkonvertering
+domain: D04
+name: Minnesläckor
 id: M14
-rel: [M10, M11, M12]
+rel: [M3, M13, M42, M41]

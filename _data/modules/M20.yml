@@ -1,4 +1,4 @@
-domain: D07
-name: Mer om dynamiska arrayer
+domain: D05
+name: Initiering av dynamiska C-arrayer
 id: M20
-rel: []
+rel: [M19]

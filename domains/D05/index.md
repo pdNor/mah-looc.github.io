@@ -1,9 +1,9 @@
 ---
 layout: domain
-title: Program och minne
+title: C-arrayer
 domain: D05
 ---
 
-_"För att implementera robusta program krävs det att en C++-programmerare kan lite om program och minne."_
+_"En array är en serie element av samma typ placerat i ett sammanhängande minnesutrymme och som kan adresseras individuellt genom ett index"_
 
-Här får du lära dig om var data i dit program lagras. Är det på heapen eller stacken? Eller kanske någon annan stans?
+Man skiljer på statiska och dynamiska arrayer. Statiska arrayer har en storlek redan vid kompilering medan dynamiskt allokerade arrayer får sin längd under körning.
