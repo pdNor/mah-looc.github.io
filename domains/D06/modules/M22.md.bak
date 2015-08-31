@@ -1,4 +1,4 @@
----
+﻿---
 domain: D07
 module: M22
 title: literal
@@ -11,7 +11,7 @@ links:
       url: "https://msdn.microsoft.com/en-us/library/69ze775t.aspx"
 ---
 
-#Strängar, string  literal
+#Strängar, string literal
 
 I C++ finns det flera olika sätt definera strängar på.
 Strängar används för att spara undan ord och meningar, men kan också direkt nyttjas vid utskrift.
