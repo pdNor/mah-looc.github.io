@@ -7,15 +7,17 @@
     var React = window.React,
         Http = window.qwest,
         Storage = window.localStorage,
+        Location = window.location,
         d3 = window.d3,
         Cache;
+
+    // TODO: temporary solution
+    var isLocal = Location.hostname == "localhost" || Location.hostname == "127.0.0.1";
 
     var Endpoints = {
         data: "/data.json",
         // Production
-        addPath: "http://mah-looc.github.io/path/add.html"
-        // LOCAL
-        // addPath: "http://localhost:4000/path/add.html"
+        addPath: isLocal ? "http://localhost:4000/path/add.html" : "http://mah-looc.github.io/path/add.html"
     };
 
     // TODO: check if localStorage exists
@@ -31,8 +33,8 @@
     }
 
     // DEBUG
-    if (Cache.user) console.log("User object:", Cache.user);
-    if (Cache.domains) console.log("Domains object:", Cache.domains);
+    // if (Cache.user) console.log("User object:", Cache.user);
+    // if (Cache.domains) console.log("Domains object:", Cache.domains);
 
     function fetchDomainsAndQuizAnswers(cb) {
         if (Cache.domains && Cache.quizAnswers) {
@@ -288,5 +290,6 @@
         );
 
     }, false);
+
 // Invoke anonymous function
 })(window, document);
