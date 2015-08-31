@@ -1,6 +1,6 @@
 # Format for a quiz
 
-id: Q12
+id: Q3
 
 level: 100
 
@@ -11,4 +11,10 @@ level: 100
 
 answers:
   - correct: "a"
+    type: "radio"
+	
+  - correct: "c"
+    type: "radio"
+	
+  - correct: "b"
     type: "radio"
