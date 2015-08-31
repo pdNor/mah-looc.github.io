@@ -1,6 +1,6 @@
 # Format for a quiz
 
-id: Q9
+id: Q12
 
 level: 100
 
@@ -10,5 +10,5 @@ level: 100
 # type = either checkbox (for multiple answers) or radio for a single answer
 
 answers:
-  - correct: "b"
+  - correct: "a"
     type: "radio"
