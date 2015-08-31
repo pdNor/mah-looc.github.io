@@ -10,11 +10,12 @@
         Location = window.location,
         Cache;
 
+    // TODO: temporary solution
+    var isLocal = Location.hostname == "localhost" || Location.hostname == "127.0.0.1";
+
     var Endpoints = {
         // Production
-        addPath: "http://178.62.76.67/api/add"
-        // LOCAL
-        // addPath: "http://0.0.0.0:3000/api/add"
+        addPath: isLocal ? "http://0.0.0.0:3000/api/add" : "http://178.62.76.67/api/add"
     };
 
     // TODO: check if localStorage exists
@@ -30,7 +31,7 @@
     }
 
     // DEBUG
-    if (Cache.user) console.log("User object:", Cache.user);
+    // if (Cache.user) console.log("User object:", Cache.user);
 
     // Source: http://stackoverflow.com/a/2880929
     function getParams(query) {
@@ -160,5 +161,6 @@
         );
 
     }, false);
+
 // Invoke anonymous function
 })(window, document);
