@@ -1,0 +1,138 @@
+﻿---
+id: D03
+module: M9
+title: Konstruktor/destruktor
+layout: module
+quiz: Q9
+links:
+    - title: "Constructors"
+      url: "http://www.learncpp.com/cpp-tutorial/85-constructors/" 
+    - title: "Destructors"
+      url: "http://www.learncpp.com/cpp-tutorial/86-destructors/" 
+---
+
+# Konstruktor/destruktor
+
+I C++ finns både konstruktorer och dekonstruktorer, 
+när ett objekt skapas (en ny instans av klassen instansieras) kör alltid en konstruktor
+och när objektet tas bort körs destruktorn.
+
+__Kodexempel A__
+
+{% highlight c++ linenos %}
+class D{
+public:
+    int* ptr;
+     
+    // konstruktor
+    D(){ 
+        ptr = new int;
+        *ptr = 7;
+    }
+     
+    // destruktor
+    ~D(){
+        delete ptr;
+    }
+};
+ 
+void Foo(){
+    float x;  // inga konstruktorer för de enkla inbyggda typerna
+    D myD;  // nu anropas konstruktorn!
+    D* pekare2D;
+    pekare2D = new D(); // nu anropas konstruktorn;
+    delete pekare2D; // nu anropas destruktorn.
+} // när vi avslutar funktionen:
+  // går ut genom slutparantesen så förstörs alla objekt,
+  // i detta fall så förstörs objektet myD och dess destruktor anropas.
+{% endhighlight %}
+
+Dvs. en lokala variabel konstrueras när exekveringen når platsen där den är deklarerad. 
+Den dekonstrueras när man avslutar det ”block” som den är deklarerade i
+(dvs. när man når nästa ”}”parantes).
+Ett heapallokerat objekt konstrueras vid ”new” och dekonstrueras vid ”delete”.
+
+### Övningsuppgifter
+{% highlight c++ linenos %}
+class Pet{
+private:
+   char* name;
+   int age;
+public:
+   Pet(){};
+   Pet(char* name) : name(name){}
+   void PrintName();
+   virtual void MakeSound() = 0;
+};
+{% endhighlight %}
+
+a) Skapa klassen Pet enligt definitionen ovan. Skriv metoden PrintName.
+
+b) Skapa två nya klasser Dog och Cat som ärver från Pet. Definiera MakeSound metoden (dvs skriv ut någonting i stilen med “Woof!” eller “Miaow!”).
+
+c) I main skapa ett Cat-objekt och ett Dog-objekt och kontrollera att PrintName och MakeSound metoderna fungerar som de ska
+
+d) Följande raden fungerar inte - varför?
+{% highlight c++ linenos %}
+Pet pet = Pet("Agatha");
+{% endhighlight %}
+
+e)  Försök sätta din hunds ålder med följande kodrad:
+{% highlight c++ linenos %}
+dog.age = 6;
+{% endhighlight %}
+Varför fungerar inte detta? Skriv om konstruktorerna för att ta med både namn och ålder.
+
+f)  Lägg till en ny metod i Pet för att skriva ut djurets ålder och kontrollera så att den fungerar.
+
+####Svar:
+{% highlight c++ linenos %}
+#include 
+class Pet{
+private:
+   char* name;
+   int age;
+public:
+   Pet(){};
+   Pet(char* name, int age) : name(name), age(age){}
+   void PrintName() { std::cout << name << '\n'; }
+   virtual void MakeSound() = 0;
+   void PrintAge() { std::cout << age << '\n'; }
+};
+
+class Dog : public Pet{
+private:
+public:
+   Dog(char* name, int age) : Pet(name, age){}
+   void MakeSound(){
+      std::cout << "WOOF!\n";
+}
+};
+
+class Cat : public Pet{
+private:
+public:
+   Cat(char* name, int age) : Pet(name, age){}
+   void MakeSound(){
+      std::cout << "Miaooow!\n";
+   }
+};
+int main(){
+   Dog dog("Fido", 6);
+   Cat cat("Barnaby", 13);
+   dog.PrintName();
+   dog.MakeSound();
+   dog.PrintAge();
+   cat.PrintName();
+   cat.MakeSound();
+   cat.PrintAge();
+   return 0;
+}
+{% endhighlight %}
+<br>
+d) Klassen Pet är abstrakt då den innehåller en "pure virtual" funktion virtual void MakeSound() = 0;
+Det går inte att skapa objekt med abstrakta typer.
+<br>
+e) Pet-klassens age-fält är privat och kan inte ändras utanför objektet.
+{: .spoiler}
+
