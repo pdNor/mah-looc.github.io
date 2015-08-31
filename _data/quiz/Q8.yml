@@ -1,14 +1,14 @@
 # Format for a quiz
 
-id: Q12
+id: Q8
 
 level: 100
 
-# Answers 
+# Answers
 # =======
 # correct = array of correct answers OR a string of the correct answer
 # type = either checkbox (for multiple answers) or radio for a single answer
 
 answers:
-  - correct: "a"
+  - correct: "b"
     type: "radio"
