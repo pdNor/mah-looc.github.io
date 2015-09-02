@@ -5,16 +5,17 @@
 
     // Dependencies
     var Http = window.qwest,
-        Storage = window.localStorage,
+        Storage = window.sessionStorage,
         Location = window.location,
         Cache;
+
+    // TODO: temporary solution
+    var isLocal = Location.hostname == "localhost" || Location.hostname == "127.0.0.1";
 
     var Endpoints = {
         data: "/data.json",
         // Production
-        submitQuiz: "http://178.62.76.67/api/quiz"
-        // LOCAL
-        // submitQuiz: "http://localhost:3000/api/quiz"
+        submitQuiz: isLocal ? "http://localhost:3000/api/quiz" : "http://178.62.76.67/api/quiz"
     };
 
     // TODO: check if localStorage exists
@@ -66,7 +67,7 @@
     // Initial fetch of quiz answers
     fetchQuizAnswers(function(r) {
         // DEBUG
-        console.log("Quiz Answers object:", r);
+        // console.log("Quiz Answers object:", r);
     });
 
     // DEBUG
@@ -598,7 +599,7 @@
                     }, {});
 
             // DEBUG
-            console.log(formData);
+            // console.log(formData);
 
             // Reduce to the current quiz
             var currQuizAnswers = Cache.quizAnswers
@@ -636,7 +637,7 @@
             quizMessage.className = "info";
 
             // DEBUG
-            console.log(results);
+            // console.log(results);
 
             var payload = {
                 id: Cache.user.id, 

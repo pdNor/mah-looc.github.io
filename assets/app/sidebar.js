@@ -6,15 +6,17 @@
     // Dependencies
     var React = window.React,
         Http = window.qwest,
-        Storage = window.localStorage,
+        Storage = window.sessionStorage,
+        Location = window.location,
         Cache;
+
+    // TODO: temporary solution
+    var isLocal = Location.hostname == "localhost" || Location.hostname == "127.0.0.1";
 
     var Endpoints = {
         data: "/data.json",
         // Production
-        getUserByCode: "http://178.62.76.67/api/user"
-        // LOCAL
-        // getUserByCode: "http://0.0.0.0:3000/api/user"
+        getUserByCode: isLocal ? "http://0.0.0.0:3000/api/user" : "http://178.62.76.67/api/user"
     };
 
     // TODO: check if localStorage exists
@@ -30,8 +32,8 @@
     }
 
     // DEBUG
-    if (Cache.user) console.log("User object:", Cache.user);
-    if (Cache.domains) console.log("Domains object:", Cache.domains);
+    // if (Cache.user) console.log("User object:", Cache.user);
+    // if (Cache.domains) console.log("Domains object:", Cache.domains);
 
     // Show/hide the quiz HTML container
     function showQuiz(show) {
