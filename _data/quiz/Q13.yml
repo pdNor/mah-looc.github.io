@@ -10,5 +10,17 @@ level: 100
 # type = either checkbox (for multiple answers) or radio for a single answer
 
 answers:
+  - correct: "c"
+    type: "radio"
+
+  - correct: "b"
+    type: "radio"
+
   - correct: "a"
+    type: "radio"
+
+  - correct: "b"
+    type: "radio"
+
+  - correct: "c"
     type: "radio"
