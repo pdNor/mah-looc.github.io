@@ -6,7 +6,7 @@
     // Dependencies
     var React = window.React,
         Http = window.qwest,
-        Storage = window.localStorage,
+        Storage = window.sessionStorage,
         Location = window.location,
         Cache;
 

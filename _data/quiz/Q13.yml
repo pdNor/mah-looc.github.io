@@ -12,15 +12,15 @@ level: 100
 answers:
   - correct: "c"
     type: "radio"
-	
+
   - correct: "b"
     type: "radio"
-	
+
   - correct: "a"
     type: "radio"
-	
+
   - correct: "b"
     type: "radio"
-	
+
   - correct: "c"
     type: "radio"
