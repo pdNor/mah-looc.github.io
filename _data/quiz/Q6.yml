@@ -11,4 +11,4 @@ level: 100
 
 answers:
   - correct: ["b", "c"]
-    type: "radio"
+    type: "checkbox"
