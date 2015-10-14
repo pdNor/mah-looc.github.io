@@ -32,15 +32,11 @@
 <script src="/assets/js/qwest.min.js"></script>
 <script src="/assets/js/react.min.js"></script>
 
-<script src="/assets/js/common.js"></script>
-
 {% for src in page.js %}
 <script src="{{ src }}"></script>
 {% endfor %}
 
-{% if page.layout == "module" or page.layout == "domain" %}
-<script src="/assets/js/sidebar.js"></script>
-{% endif %}
+<script src="/assets/js/bundle.js"></script>
 
 {% if site.analytics %}
 <script>

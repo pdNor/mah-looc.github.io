@@ -1,6 +1,8 @@
 .*
 _site/
 .sass-cache/
+node_modules
+.module_cache
 .jekyll
 .DS_Store
 .DS_Store?
