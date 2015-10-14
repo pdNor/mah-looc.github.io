@@ -10,7 +10,7 @@
     </ul>
     {% endif %}
 
-    {% if site.data.modules[page.module].rel %}
+    {% if site.data.modules[page.module].rel.length %}
     <h5 class="sidebar-links-header">Relaterade moduler</h5>
     <ul class="relationship-links">
         {% for id in site.data.modules[page.module].rel %}
