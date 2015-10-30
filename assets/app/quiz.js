@@ -38,8 +38,8 @@ function convertAlternatives(list, index) {
     }
 
     // Shuffle alternatives, then create them and append them to the <div>
-    shuffle(toArray(list.children))
-        .map(createAlternative)
+    shuffle(toArray(list.children)
+        .map(createAlternative))
         .map((label) => div.appendChild(label));
     
     return div;
@@ -151,7 +151,7 @@ function submitQuiz(e) {
 
     // Reset message
     quizMessage.textContent = "";
-    quizMesage.className = "";
+    quizMessage.className = "";
 
     // Check wether a user has permission to take a quiz or not
     let userCanTakeQuiz = Cache.user.paths[0].modules.some((m) => m.mid == moduleId);
@@ -203,7 +203,8 @@ function sendQuizResults(payload, done) {
 
 // Show different messages depending on results from the quiz
 function showQuizCompletionMessage(done) {
-    let submitBtn = byId("submit-button"),
+    let submitBtn = byId("submit-quiz"),
+        moduleId = byId("module-id").value,
         a = create("a");
 
     a.className = "submit-quiz-form";
@@ -229,6 +230,9 @@ function showQuizCompletionMessage(done) {
             a.textContent = "Profil";
             a.href = "/path/profile.html";
         }
+
+        // Update sidebar path list
+        PubSub.publish("user.quiz.done", Cache.user);
     } else {
         a.textContent = "Försök igen";
         a.href = "";

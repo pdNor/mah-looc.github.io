@@ -105,13 +105,20 @@ class Sidebar extends React.Component {
         this.loginUser = this.loginUser.bind(this);
         this.logoutUser = this.logoutUser.bind(this);
         this.toggleVisible = this.toggleVisible.bind(this);
+        this.updateUser = this.updateUser.bind(this);
         // Fetch data
         this.fetchDomains();
+
+        PubSub.subscribe("user.quiz.done", this.updateUser);
     }
 
     fetchDomains() {
         // TODO: error handling?
         Cache.getDomains(d => this.setState({ domains: d }));
+    }
+
+    updateUser(msg, u) {
+        this.setState({ user: u });
     }
 
     loginUser(u) {

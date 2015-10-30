@@ -34,6 +34,6 @@ sass:
 rss: false
 
 # Files to be excluded (feel free to exclude files like: search.json, rss.xml, humans.txt, etc.)
-exclude: ['Gemfile', 'Gemfile.lock', 'README.md', 'LICENSE.txt']
+exclude: ['Gemfile', 'Gemfile.lock', 'README.md', 'LICENSE.txt', 'node_modules']
 
 encoding: utf-8

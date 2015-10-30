@@ -42,7 +42,7 @@ class Graph extends React.Component {
 
         let pts = module.results
                 .filter(r => r.quiz == qId)
-                .map(r = this.getPoints(qAnswers, r));
+                .map(r => this.getPoints(qAnswers, r));
 
         return Math.max.apply(Math, pts) / qAnswers.length;
     }

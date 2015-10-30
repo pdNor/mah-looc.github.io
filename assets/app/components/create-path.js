@@ -231,7 +231,7 @@ class UserInput extends React.Component {
                     <input
                         key={this.props.userExists ? 1 : 2}
                         onChange={this.props.userExists ? this.props.handleCodeChange : this.props.handleEmailChange}
-                        placeholder={this.userExists ? "Användarkod" : "Epost"}
+                        placeholder={this.props.userExists ? "Användarkod" : "Epost"}
                         type="text" />
                 </label>
                 <button type="button" onClick={this.props.handleSubmit}>Skicka</button>

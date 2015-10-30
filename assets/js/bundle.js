@@ -821,7 +821,7 @@
 	    }
 
 	    // Shuffle alternatives, then create them and append them to the <div>
-	    (0, _helpersJs.shuffle)((0, _helpersJs.toArray)(list.children)).map(createAlternative).map(function (label) {
+	    (0, _helpersJs.shuffle)((0, _helpersJs.toArray)(list.children).map(createAlternative)).map(function (label) {
 	        return div.appendChild(label);
 	    });
 
@@ -937,7 +937,7 @@
 
 	    // Reset message
 	    quizMessage.textContent = "";
-	    quizMesage.className = "";
+	    quizMessage.className = "";
 
 	    // Check wether a user has permission to take a quiz or not
 	    var userCanTakeQuiz = _cacheJs2["default"].user.paths[0].modules.some(function (m) {
@@ -997,7 +997,8 @@
 
 	// Show different messages depending on results from the quiz
 	function showQuizCompletionMessage(done) {
-	    var submitBtn = (0, _helpersJs.byId)("submit-button"),
+	    var submitBtn = (0, _helpersJs.byId)("submit-quiz"),
+	        moduleId = (0, _helpersJs.byId)("module-id").value,
 	        a = (0, _helpersJs.create)("a");
 
 	    a.className = "submit-quiz-form";
@@ -1024,6 +1025,9 @@
 	            a.textContent = "Profil";
 	            a.href = "/path/profile.html";
 	        }
+
+	        // Update sidebar path list
+	        _pubsubJs2["default"].publish("user.quiz.done", _cacheJs2["default"].user);
 	    } else {
 	        a.textContent = "Försök igen";
 	        a.href = "";
@@ -2052,7 +2056,7 @@
 	                    React.createElement("input", {
 	                        key: this.props.userExists ? 1 : 2,
 	                        onChange: this.props.userExists ? this.props.handleCodeChange : this.props.handleEmailChange,
-	                        placeholder: this.userExists ? "Användarkod" : "Epost",
+	                        placeholder: this.props.userExists ? "Användarkod" : "Epost",
 	                        type: "text" })
 	                ),
 	                React.createElement(
@@ -2532,8 +2536,11 @@
 	        this.loginUser = this.loginUser.bind(this);
 	        this.logoutUser = this.logoutUser.bind(this);
 	        this.toggleVisible = this.toggleVisible.bind(this);
+	        this.updateUser = this.updateUser.bind(this);
 	        // Fetch data
 	        this.fetchDomains();
+
+	        _pubsubJs2["default"].subscribe("user.quiz.done", this.updateUser);
 	    }
 
 	    _createClass(Sidebar, [{
@@ -2545,6 +2552,11 @@
 	            _cacheJs2["default"].getDomains(function (d) {
 	                return _this2.setState({ domains: d });
 	            });
+	        }
+	    }, {
+	        key: "updateUser",
+	        value: function updateUser(msg, u) {
+	            this.setState({ user: u });
 	        }
 	    }, {
 	        key: "loginUser",
@@ -2675,6 +2687,8 @@
 	    _createClass(Graph, [{
 	        key: "getMaxPoints",
 	        value: function getMaxPoints(module, answers) {
+	            var _this = this;
+
 	            if (!module.results || !module.results.length) {
 	                return 0;
 	            }
@@ -2693,7 +2707,9 @@
 
 	            var pts = module.results.filter(function (r) {
 	                return r.quiz == qId;
-	            }).map(r = this.getPoints(qAnswers, r));
+	            }).map(function (r) {
+	                return _this.getPoints(qAnswers, r);
+	            });
 
 	            return Math.max.apply(Math, pts) / qAnswers.length;
 	        }
@@ -2727,7 +2743,7 @@
 	    }, {
 	        key: "getNodes",
 	        value: function getNodes(modules, answers) {
-	            var _this = this;
+	            var _this2 = this;
 
 	            return modules.map(function (m) {
 	                return {
@@ -2735,7 +2751,7 @@
 	                    domain: m.domain,
 	                    name: m.name,
 	                    group: +m.domain.substring(1),
-	                    score: _this.getMaxPoints(m, answers)
+	                    score: _this2.getMaxPoints(m, answers)
 	                };
 	            });
 	        }
@@ -2815,18 +2831,18 @@
 	    }, {
 	        key: "render",
 	        value: function render() {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            // If the props are empty don't do anything
 	            if (this.state.mounted && this.props.domains.length && this.props.answers.length && this.props.modules.length) {
 	                (function () {
-	                    var modules = _this2.props.modules,
-	                        nodes = _this2.getNodes(modules, _this2.props.answers),
-	                        links = _this2.getLinks(modules),
-	                        groups = _this2.getGroups(nodes, _this2.props.domains);
+	                    var modules = _this3.props.modules,
+	                        nodes = _this3.getNodes(modules, _this3.props.answers),
+	                        links = _this3.getLinks(modules),
+	                        groups = _this3.getGroups(nodes, _this3.props.domains);
 
-	                    var w = _this2.props.width,
-	                        h = _this2.props.height,
+	                    var w = _this3.props.width,
+	                        h = _this3.props.height,
 	                        mTop = (h - 30 * groups.length) / 2,
 	                        // Margin-top
 	                    color = d3.scale.category20(),
@@ -2870,7 +2886,7 @@
 	                        return d.name;
 	                    });
 
-	                    force.nodes(nodes).links(links).on("tick", _this2.tick(nodes, node, link)).start();
+	                    force.nodes(nodes).links(links).on("tick", _this3.tick(nodes, node, link)).start();
 	                })();
 	            }
 	            return React.createElement("div", null);
@@ -2956,21 +2972,21 @@
 	    }, {
 	        key: "fetchDomains",
 	        value: function fetchDomains() {
-	            var _this3 = this;
+	            var _this4 = this;
 
 	            // TODO: error handling?
 	            _cacheJs2["default"].getDomains(function (d) {
-	                return _this3.setState({ domains: d });
+	                return _this4.setState({ domains: d });
 	            });
 	        }
 	    }, {
 	        key: "fetchQuizAnswers",
 	        value: function fetchQuizAnswers() {
-	            var _this4 = this;
+	            var _this5 = this;
 
 	            // TODO: error handling?
 	            _cacheJs2["default"].getQuizAnswers(function (a) {
-	                return _this4.setState({ answers: a });
+	                return _this5.setState({ answers: a });
 	            });
 	        }
 	    }, {
