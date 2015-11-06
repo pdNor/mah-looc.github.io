@@ -1,6 +1,6 @@
 ---
 layout: domain
-title: Karakteristiska drag
+title: Karakteristiska dragZZ
 domain: D01
 ---
 
