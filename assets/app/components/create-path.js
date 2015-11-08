@@ -324,7 +324,7 @@ class FormActions extends React.Component {
 
                 Cache.updateUser(res.user);
 
-                let href = ENDPOINTS.addPath + "?hash=" + res.path.hash;
+                let href = ENDPOINTS.mahLoocAddPath + "?hash=" + res.path.hash;
 
                 this.setState({
                     userExists: false,

@@ -20,8 +20,7 @@ class SuccessMessage extends React.Component {
             <p className="info">
                 Vägen är nu tillagd till din användare! Använd koden
                 <code>{this.props.code}</code> för att logga in. Du
-                kan nu gå vidare till din <a href="/path/profile.html">profil</a>
-                för att påbörja din väg.
+                kan nu gå vidare till din <a href="/path/profile.html">profil</a> för att påbörja din väg.
             </p>
         );
     }
@@ -84,7 +83,7 @@ class Form extends React.Component {
             .then(res => {
                 Cache.updateUser(res.user);
                 this.setState({ submitted: true });
-                this.props.setMessage(<SuccessMessage />);
+                this.props.setMessage(<SuccessMessage code={res.user.code}/>);
             })
             .catch(() => {
                 this.setState({ submitted: false });

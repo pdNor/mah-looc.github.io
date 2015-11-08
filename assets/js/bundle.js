@@ -404,6 +404,7 @@
 	// Endpoints for HTTP requests
 	exports["default"] = {
 	    localData: "/data.json",
+	    mahLoocAddPath: "http://mah-looc.github.io/path/add.html",
 	    addPath: isLocal ? "http://localhost:3000/api/add" : "http://178.62.76.67/api/add",
 	    createPath: isLocal ? "http://localhost:3000/api/paths" : "http://178.62.76.67/api/paths",
 	    submitQuiz: isLocal ? "http://localhost:3000/api/quiz" : "http://178.62.76.67/api/quiz",
@@ -1409,7 +1410,7 @@
 	                    { href: "/path/profile.html" },
 	                    "profil"
 	                ),
-	                "för att påbörja din väg."
+	                " för att påbörja din väg."
 	            );
 	        }
 	    }]);
@@ -1501,7 +1502,7 @@
 	            Http.post(_endpointsJs2["default"].addPath, payload, { dataType: "json" }).then(function (res) {
 	                _cacheJs2["default"].updateUser(res.user);
 	                _this.setState({ submitted: true });
-	                _this.props.setMessage(React.createElement(SuccessMessage, null));
+	                _this.props.setMessage(React.createElement(SuccessMessage, { code: res.user.code }));
 	            })["catch"](function () {
 	                _this.setState({ submitted: false });
 	                _this.props.setMessage(React.createElement(InfoMessage, { text: MESSAGE.ERRHTTP }));
@@ -2172,7 +2173,7 @@
 
 	                _cacheJs2["default"].updateUser(res.user);
 
-	                var href = _endpointsJs2["default"].addPath + "?hash=" + res.path.hash;
+	                var href = _endpointsJs2["default"].mahLoocAddPath + "?hash=" + res.path.hash;
 
 	                _this5.setState({
 	                    userExists: false,
