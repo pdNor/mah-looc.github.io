@@ -212,6 +212,11 @@
 	                    module.mid = module.id;
 	                    delete module.id;
 	                    return module;
+	                }).sort(function (a, b) {
+	                    // Get numeric values for the ids (ex. "M01" > 1)
+	                    var midA = +a.mid.substring(1),
+	                        midB = +b.mid.substring(1);
+	                    return midB < midA ? 1 : -1;
 	                });
 	                return domain;
 	            }).sort(function (a, b) {
