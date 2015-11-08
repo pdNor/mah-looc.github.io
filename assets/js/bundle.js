@@ -1051,13 +1051,15 @@
 	        questionHeaders = (0, _helpersJs.bySelector)("#quiz-container h3"),
 	        alternativeLists = (0, _helpersJs.bySelector)("#quiz-container .alternatives");
 
-	    // Check wether a user has permission to take a quiz or not
-	    var userCanTakeQuiz = _cacheJs2["default"].user.paths[0].modules.some(function (m) {
-	        return m.mid == moduleId;
-	    });
+	    if (_cacheJs2["default"].userExists()) {
+	        // Check wether a user has permission to take a quiz or not
+	        var userCanTakeQuiz = _cacheJs2["default"].user.paths[0].modules.some(function (m) {
+	            return m.mid == moduleId;
+	        });
 
-	    if (!userCanTakeQuiz) {
-	        return;
+	        if (!userCanTakeQuiz) {
+	            return;
+	        }
 	    }
 
 	    // Login/Logout events

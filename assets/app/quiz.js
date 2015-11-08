@@ -250,11 +250,13 @@ function setupQuiz() {
         questionHeaders = bySelector("#quiz-container h3"),
         alternativeLists = bySelector("#quiz-container .alternatives");
 
-    // Check wether a user has permission to take a quiz or not
-    let userCanTakeQuiz = Cache.user.paths[0].modules.some((m) => m.mid == moduleId);
+    if (Cache.userExists()) {
+        // Check wether a user has permission to take a quiz or not
+        let userCanTakeQuiz = Cache.user.paths[0].modules.some((m) => m.mid == moduleId);
 
-    if (!userCanTakeQuiz) {
-        return;
+        if (!userCanTakeQuiz) {
+            return;
+        }
     }
 
     // Login/Logout events
